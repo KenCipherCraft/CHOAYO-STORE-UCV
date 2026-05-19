@@ -1,0 +1,56 @@
+<ion-content class="ion-padding" color="light">
+  <div class="login-container">
+    
+    <div class="header-section">
+      <h1>Crear Cuenta</h1>
+      <p>Regístrate en CHOAYO STORE</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="form-section">
+      
+      <ion-input type="text" formControlName="fullName" placeholder="Nombre completo" fill="outline" shape="round" class="custom-input">
+        <ion-icon slot="start" name="person-outline" color="medium"></ion-icon>
+      </ion-input>
+      <ion-text color="danger" *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="error-msg">
+        <small>Ingrese su nombre (mín. 3 letras).</small>
+      </ion-text>
+
+      <ion-input type="email" formControlName="email" placeholder="correo@ejemplo.com" fill="outline" shape="round" class="custom-input">
+        <ion-icon slot="start" name="mail-outline" color="medium"></ion-icon>
+      </ion-input>
+      <ion-text color="danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-msg">
+        <small>Ingrese un correo válido.</small>
+      </ion-text>
+
+      <ion-input [type]="passwordType" formControlName="password" placeholder="Contraseña" fill="outline" shape="round" class="custom-input">
+        <ion-icon slot="start" name="lock-closed-outline" color="medium"></ion-icon>
+        <ion-button fill="clear" slot="end" (click)="togglePasswordMode()" aria-label="Mostrar contraseña">
+          <ion-icon slot="icon-only" [name]="passwordIcon" color="medium"></ion-icon>
+        </ion-button>
+      </ion-input>
+      <ion-text color="danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-msg">
+        <small>Mínimo 6 caracteres.</small>
+      </ion-text>
+
+      <ion-input [type]="confirmPasswordType" formControlName="confirmPassword" placeholder="Confirmar contraseña" fill="outline" shape="round" class="custom-input">
+        <ion-icon slot="start" name="lock-closed-outline" color="medium"></ion-icon>
+        <ion-button fill="clear" slot="end" (click)="toggleConfirmPasswordMode()" aria-label="Mostrar contraseña">
+          <ion-icon slot="icon-only" [name]="confirmPasswordIcon" color="medium"></ion-icon>
+        </ion-button>
+      </ion-input>
+      <ion-text color="danger" *ngIf="registerForm.get('confirmPassword')?.hasError('noMatch') && registerForm.get('confirmPassword')?.touched" class="error-msg">
+        <small>Las contraseñas no coinciden.</small>
+      </ion-text>
+
+      <ion-button type="submit" expand="block" color="primary" class="login-btn" [disabled]="registerForm.invalid">
+        Registrarse
+      </ion-button>
+
+    </form>
+
+    <div class="footer-section">
+      <p>¿Ya tienes cuenta? <a routerLink="/login">Iniciar sesión</a></p>
+    </div>
+
+  </div>
+</ion-content>

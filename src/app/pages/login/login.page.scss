@@ -1,0 +1,81 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 10px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1E1E1E;
+    margin-bottom: 5px;
+  }
+
+  p {
+    color: #666666;
+    margin-top: 0;
+    font-size: 14px;
+  }
+}
+
+.custom-input {
+  margin-bottom: 20px;
+  --background: #FFFFFF;
+  --border-color: #E0E0E0;
+  --border-radius: 12px;
+  --padding-start: 15px;
+}
+
+/* Nueva clase para los mensajes de error */
+.error-msg {
+  display: block;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  padding-left: 15px;
+}
+
+.options-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+
+  ion-checkbox {
+    --size: 18px;
+    color: #1E1E1E;
+  }
+
+  .forgot-link {
+    color: #6C63FF;
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.login-btn {
+  --border-radius: 12px;
+  height: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  --background: #6C63FF;
+}
+
+.footer-section {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #666666;
+
+  a {
+    color: #6C63FF;
+    text-decoration: none;
+    font-weight: bold;
+  }
+}
