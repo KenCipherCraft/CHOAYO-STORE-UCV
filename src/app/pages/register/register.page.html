@@ -1,55 +1,51 @@
-<ion-content class="ion-padding" color="light">
+<ion-content class="login-bg">
   <div class="login-container">
     
-    <div class="header-section">
-      <h1>Crear Cuenta</h1>
-      <p>Regístrate en CHOAYO STORE</p>
+    <div class="logo-section" style="margin-bottom: 20px;">
+      <div class="gift-box" style="width: 60px; height: 60px;">
+        <ion-icon name="gift" style="font-size: 35px;"></ion-icon>
+      </div>
     </div>
 
-    <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="form-section">
-      
-      <ion-input type="text" formControlName="fullName" placeholder="Nombre completo" fill="outline" shape="round" class="custom-input">
-        <ion-icon slot="start" name="person-outline" color="medium"></ion-icon>
-      </ion-input>
-      <ion-text color="danger" *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="error-msg">
-        <small>Ingrese su nombre (mín. 3 letras).</small>
-      </ion-text>
+    <div class="white-card">
+      <div class="card-header">
+        <h1>Crear cuenta</h1>
+        <p>Completa tus datos para empezar</p>
+      </div>
 
-      <ion-input type="email" formControlName="email" placeholder="correo@ejemplo.com" fill="outline" shape="round" class="custom-input">
-        <ion-icon slot="start" name="mail-outline" color="medium"></ion-icon>
-      </ion-input>
-      <ion-text color="danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-msg">
-        <small>Ingrese un correo válido.</small>
-      </ion-text>
+      <form [formGroup]="registerForm" (ngSubmit)="registrar()">
+        <div class="input-group">
+          <ion-icon name="person-outline" class="input-icon"></ion-icon>
+          <input type="text" formControlName="fullName" placeholder="Nombre completo">
+        </div>
 
-      <ion-input [type]="passwordType" formControlName="password" placeholder="Contraseña" fill="outline" shape="round" class="custom-input">
-        <ion-icon slot="start" name="lock-closed-outline" color="medium"></ion-icon>
-        <ion-button fill="clear" slot="end" (click)="togglePasswordMode()" aria-label="Mostrar contraseña">
-          <ion-icon slot="icon-only" [name]="passwordIcon" color="medium"></ion-icon>
-        </ion-button>
-      </ion-input>
-      <ion-text color="danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-msg">
-        <small>Mínimo 6 caracteres.</small>
-      </ion-text>
+        <div class="input-group">
+          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+          <input type="email" formControlName="email" placeholder="Correo electrónico">
+        </div>
 
-      <ion-input [type]="confirmPasswordType" formControlName="confirmPassword" placeholder="Confirmar contraseña" fill="outline" shape="round" class="custom-input">
-        <ion-icon slot="start" name="lock-closed-outline" color="medium"></ion-icon>
-        <ion-button fill="clear" slot="end" (click)="toggleConfirmPasswordMode()" aria-label="Mostrar contraseña">
-          <ion-icon slot="icon-only" [name]="confirmPasswordIcon" color="medium"></ion-icon>
-        </ion-button>
-      </ion-input>
-      <ion-text color="danger" *ngIf="registerForm.get('confirmPassword')?.hasError('noMatch') && registerForm.get('confirmPassword')?.touched" class="error-msg">
-        <small>Las contraseñas no coinciden.</small>
-      </ion-text>
+        <div class="input-group">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <input [type]="passwordType" formControlName="password" placeholder="Contraseña">
+        </div>
 
-      <ion-button type="submit" expand="block" color="primary" class="login-btn" [disabled]="registerForm.invalid">
-        Registrarse
-      </ion-button>
+        <div class="input-group">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <input [type]="confirmPasswordType" formControlName="confirmPassword" placeholder="Confirmar contraseña">
+        </div>
 
-    </form>
+        <div class="options">
+          <ion-checkbox labelPlacement="end" justify="start">Acepto los términos y condiciones</ion-checkbox>
+        </div>
 
-    <div class="footer-section">
-      <p>¿Ya tienes cuenta? <a routerLink="/login">Iniciar sesión</a></p>
+        <button type="submit" class="main-btn" [disabled]="registerForm.invalid">
+          Registrarme
+        </button>
+      </form>
+
+      <div class="footer">
+        <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+      </div>
     </div>
 
   </div>

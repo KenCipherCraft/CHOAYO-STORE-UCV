@@ -7,10 +7,11 @@ import {
   IonInput, 
   IonButton, 
   IonIcon,
-  IonText
+  IonText,
+  IonCheckbox
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
+import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline, gift } from 'ionicons/icons';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutlin
     IonButton, 
     IonIcon, 
     IonText,
+    IonCheckbox,
     CommonModule, 
     ReactiveFormsModule,
     RouterModule
@@ -36,7 +38,8 @@ export class RegisterPage implements OnInit {
   confirmPasswordIcon: string = 'eye-outline';
 
   constructor(private formBuilder: FormBuilder) { 
-    addIcons({ personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline });
+    // Registramos también el icono 'gift' que añadimos en el rediseño
+    addIcons({ personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline, gift });
     
     // Configuramos validaciones y añadimos la regla personalizada de contraseñas
     this.registerForm = this.formBuilder.group({

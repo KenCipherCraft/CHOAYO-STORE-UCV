@@ -1,46 +1,64 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title>CHOAYO STORE</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content color="light">
+<ion-content class="custom-bg">
   
-  <div class="header-background">
-    <ion-card class="points-card">
-      <ion-card-header>
-        <ion-card-title>Mis Puntos</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="points-display">
-          <h1>{{ usuario.puntos }}</h1>
-          <ion-icon name="star" color="warning"></ion-icon>
-        </div>
-        <p>Nivel actual: <strong>{{ usuario.nivel }}</strong></p>
-      </ion-card-content>
-    </ion-card>
+  <div class="top-header">
+    <h1 class="greeting">Hola, {{usuario.nombre}} <span class="wave">👋</span></h1>
+    <ion-button fill="clear" class="btn-bell">
+      <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+    </ion-button>
   </div>
 
-  <ion-grid class="action-grid">
-    <ion-row>
-      <ion-col size="6">
-        <ion-card class="action-card">
-          <ion-icon name="scan-outline" color="primary"></ion-icon>
-          <p>Escanear QR</p>
-        </ion-card>
-      </ion-col>
-      <ion-col size="6">
-        <ion-card class="action-card">
-          <ion-icon name="gift-outline" color="secondary"></ion-icon>
-          <p>Recompensas</p>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="main-card">
+    <p class="card-subtitle">Tus puntos actuales</p>
+    <div class="points-display">
+      <ion-icon name="star" class="star-icon"></ion-icon>
+      <h2>{{usuario.puntos}} <span class="pts-text">pts</span></h2>
+    </div>
+    <button class="btn-yellow">Canjear ahora</button>
+    <ion-icon name="star" class="bg-star"></ion-icon>
+  </div>
+
+  <div class="section-title">
+    <h3>Recompensas destacadas</h3>
+    <a href="#">Ver todas</a>
+  </div>
+
+  <div class="scrolling-wrapper">
+    <div class="reward-card">
+      <div class="icon-box cafe">
+        <ion-icon name="cafe-outline"></ion-icon>
+      </div>
+      <h4>Café gratis</h4>
+      <p>500 pts</p>
+    </div>
+    
+    <div class="reward-card">
+      <div class="icon-box bag">
+        <ion-icon name="bag-outline" class="faded-icon"></ion-icon>
+        <span class="badge">20%</span>
+      </div>
+      <h4>Descuento 20%</h4>
+      <p>800 pts</p>
+    </div>
+    
+    <div class="reward-card">
+      <div class="icon-box ticket">
+        <ion-icon name="ticket-outline"></ion-icon>
+      </div>
+      <h4>Cupón S/15</h4>
+      <p>1000 pts</p>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3>Promociones activas</h3>
+  </div>
+
+  <div class="promo-card">
+    <div class="promo-content">
+      <h3>Duplica tus puntos</h3>
+      <p>este fin de semana</p>
+    </div>
+    <ion-icon name="gift-outline" class="promo-icon"></ion-icon>
+  </div>
 
 </ion-content>
