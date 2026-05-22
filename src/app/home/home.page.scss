@@ -197,3 +197,65 @@
     color: #FFC107;
   }
 }
+
+/* Estilos para el Modal Personalizado */
+.custom-modal {
+  --height: auto;
+  --width: 85%;
+  --border-radius: 35px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+
+  .modal-wrapper {
+    padding: 30px 20px;
+    background: white;
+    text-align: center;
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .icon-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        margin-bottom: 20px;
+
+        &.success-color { background: #E7F9ED; color: #2DD36F; }
+        &.error-color { background: #FFF4E5; color: #FFC107; }
+      }
+
+      h2 {
+        margin: 0 0 15px;
+        font-size: 24px;
+        font-weight: 800;
+        color: #1A1A1A;
+      }
+
+      p {
+        margin: 0 0 30px;
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+        b { color: #1A1A1A; font-weight: 700; }
+      }
+
+      .modal-btn {
+        width: 100%;
+        height: 55px;
+        background: #6C63FF;
+        color: white;
+        border: none;
+        border-radius: 18px;
+        font-size: 16px;
+        font-weight: 700;
+        box-shadow: 0 8px 15px rgba(108, 99, 255, 0.2);
+        cursor: pointer;
+      }
+    }
+  }
+}

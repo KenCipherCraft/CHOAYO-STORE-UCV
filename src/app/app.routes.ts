@@ -22,18 +22,18 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
       },
-      // Rutas temporales apuntando a Home hasta que creemos sus propias páginas
       {
         path: 'recompensas',
         loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
       },
       {
+        // ACTUALIZAMOS ESTA RUTA HACIA EL NUEVO ESCÁNER
         path: 'escanear',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+        loadComponent: () => import('./pages/scan/scan.page').then((m) => m.ScanPage),
       },
       {
         path: 'historial',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+        loadComponent: () => import('./pages/historial/historial.page').then((m) => m.HistorialPage),
       },
       {
         path: 'perfil',

@@ -1,7 +1,7 @@
 <ion-content class="custom-bg">
   
   <div class="top-header">
-    <h1 class="greeting">Hola, {{usuario.nombre}} <span class="wave">👋</span></h1>
+    <h1 class="greeting">Hola {{usuario.nombre.split(' ')}} <span class="wave">👋</span></h1>
     <ion-button fill="clear" class="btn-bell">
       <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
     </ion-button>
@@ -13,7 +13,7 @@
       <ion-icon name="star" class="star-icon"></ion-icon>
       <h2>{{usuario.puntos}} <span class="pts-text">pts</span></h2>
     </div>
-    <button class="btn-yellow">Canjear ahora</button>
+    <button class="btn-yellow" (click)="procesarCanje('Cupón Especial', 500)">Canjear ahora</button>
     <ion-icon name="star" class="bg-star"></ion-icon>
   </div>
 
@@ -23,7 +23,8 @@
   </div>
 
   <div class="scrolling-wrapper">
-    <div class="reward-card">
+    
+    <div class="reward-card" (click)="procesarCanje('Café gratis', 500)">
       <div class="icon-box cafe">
         <ion-icon name="cafe-outline"></ion-icon>
       </div>
@@ -31,7 +32,7 @@
       <p>500 pts</p>
     </div>
     
-    <div class="reward-card">
+    <div class="reward-card" (click)="procesarCanje('Descuento 20%', 800)">
       <div class="icon-box bag">
         <ion-icon name="bag-outline" class="faded-icon"></ion-icon>
         <span class="badge">20%</span>
@@ -40,7 +41,7 @@
       <p>800 pts</p>
     </div>
     
-    <div class="reward-card">
+    <div class="reward-card" (click)="procesarCanje('Cupón S/15', 1000)">
       <div class="icon-box ticket">
         <ion-icon name="ticket-outline"></ion-icon>
       </div>
@@ -60,5 +61,20 @@
     </div>
     <ion-icon name="gift-outline" class="promo-icon"></ion-icon>
   </div>
-
+<ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false" class="custom-modal">
+  <ng-template>
+    <div class="modal-wrapper">
+      <div class="modal-body">
+        <div class="icon-circle" [ngClass]="modalData.color">
+          <ion-icon [name]="modalData.icono"></ion-icon>
+        </div>
+        
+        <h2>{{ modalData.titulo }}</h2>
+        <p [innerHTML]="modalData.mensaje"></p>
+        
+        <button class="modal-btn" (click)="cerrarModal()">Entendido</button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
 </ion-content>
