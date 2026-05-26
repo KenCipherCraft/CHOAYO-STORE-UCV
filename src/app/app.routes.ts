@@ -2,11 +2,6 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then((m) => m.LoginPage),
   },
@@ -24,10 +19,9 @@ export const routes: Routes = [
       },
       {
         path: 'recompensas',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+        loadComponent: () => import('./pages/recompensas/recompensas.page').then((m) => m.RecompensasPage),
       },
       {
-        // ACTUALIZAMOS ESTA RUTA HACIA EL NUEVO ESCÁNER
         path: 'escanear',
         loadComponent: () => import('./pages/scan/scan.page').then((m) => m.ScanPage),
       },
@@ -36,8 +30,9 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/historial/historial.page').then((m) => m.HistorialPage),
       },
       {
+        // Ruta conectada al nuevo perfil
         path: 'perfil',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+        loadComponent: () => import('./pages/perfil/perfil.page').then((m) => m.PerfilPage),
       },
       {
         path: '',
@@ -47,9 +42,8 @@ export const routes: Routes = [
     ]
   },
   {
-    // Redirigir el antiguo acceso directo al nuevo sistema de pestañas
-    path: 'home',
-    redirectTo: 'tabs/home',
-    pathMatch: 'full'
-  }
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
 ];

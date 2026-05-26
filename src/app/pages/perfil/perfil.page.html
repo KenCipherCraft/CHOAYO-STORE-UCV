@@ -1,0 +1,53 @@
+<ion-content class="perfil-bg">
+  
+    <div class="profile-header">
+      <div class="avatar-container">
+        <div class="avatar">
+          {{ usuario.nombre.charAt(0) }}
+        </div>
+      </div>
+      <h2>{{ usuario.nombre }}</h2>
+      <p>{{ usuario.correo }}</p>
+    </div>
+  
+    <div class="level-card">
+      <div class="level-info">
+        <span class="badge">Nivel {{ usuario.nivel }}</span>
+        <h3>Tus Puntos</h3>
+      </div>
+      <div class="points-info">
+        <ion-icon name="star"></ion-icon>
+        <h2>{{ usuario.puntos }}</h2>
+      </div>
+    </div>
+  
+    <div class="options-menu">
+      
+      <div class="menu-item">
+        <div class="item-icon bg-blue"><ion-icon name="person-outline"></ion-icon></div>
+        <div class="item-text">Editar Perfil</div>
+        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      </div>
+  
+      <div class="menu-item">
+        <div class="item-icon bg-purple"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+        <div class="item-text">Seguridad y Contraseña</div>
+        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      </div>
+  
+      <div class="menu-item">
+        <div class="item-icon bg-orange"><ion-icon name="notifications-outline"></ion-icon></div>
+        <div class="item-text">Notificaciones</div>
+        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+      </div>
+  
+    </div>
+  
+    <div class="logout-container">
+      <button class="btn-logout" (click)="cerrarSesion()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar Sesión
+      </button>
+    </div>
+  
+  </ion-content>

@@ -1,0 +1,39 @@
+<ion-content class="recompensas-bg">
+  
+    <div class="header-section">
+      <h2>Catálogo de Recompensas</h2>
+      <p>Tienes <strong>{{usuario.puntos}} pts</strong> disponibles</p>
+    </div>
+  
+    <div class="catalog-grid">
+      <div class="reward-item" *ngFor="let item of catalogo" (click)="procesarCanje(item.nombre, item.costo)">
+        
+        <div class="icon-box" [ngClass]="item.colorClass">
+          <ion-icon [name]="item.icono"></ion-icon>
+        </div>
+        
+        <div class="item-details">
+          <h3>{{ item.nombre }}</h3>
+          <p>{{ item.costo }} pts</p>
+        </div>
+        
+        <button class="btn-canjear">Canjear</button>
+      </div>
+    </div>
+  
+    <ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false" class="custom-modal">
+      <ng-template>
+        <div class="modal-wrapper">
+          <div class="modal-body">
+            <div class="icon-circle" [ngClass]="modalData.color">
+              <ion-icon [name]="modalData.icono"></ion-icon>
+            </div>
+            <h2>{{ modalData.titulo }}</h2>
+            <p [innerHTML]="modalData.mensaje"></p>
+            <button class="modal-btn" (click)="cerrarModal()">Entendido</button>
+          </div>
+        </div>
+      </ng-template>
+    </ion-modal>
+  
+  </ion-content>

@@ -1,56 +1,44 @@
-<ion-content class="login-bg">
+<ion-content class="custom-bg">
   <div class="login-container">
     
     <div class="logo-section">
-      <div class="gift-box">
-        <ion-icon name="gift"></ion-icon>
-      </div>
-      <div class="logo-text">
-        <h2>CHOAYO<span>APP</span></h2>
-        <p>Premiamos tu fidelidad</p>
-      </div>
+      <div class="logo-box"></div>
+      <h1>CHOAYOAPP</h1>
+      <p>Premiamos tu fidelidad</p>
     </div>
 
-    <div class="white-card">
-      <div class="card-header">
-        <h1>Bienvenido</h1>
-        <p>Inicia sesión para continuar</p>
+    <div class="welcome-text">
+      <h2>Bienvenido</h2>
+      <p>Inicia sesión para continuar</p>
+    </div>
+
+    <div class="form-container">
+      
+      <div class="input-group">
+        <ion-icon name="mail-outline"></ion-icon>
+        <input type="email" placeholder="Correo electrónico">
       </div>
 
-      <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()">
-        <div class="input-group">
-          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-          <input type="email" formControlName="email" placeholder="Correo electrónico">
-        </div>
-        <ion-text color="danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-msg">
-          <small>Correo inválido</small>
-        </ion-text>
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <input [type]="passwordType" placeholder="Contraseña">
+        <ion-icon [name]="passwordIcon" class="eye-icon" (click)="togglePasswordMode()"></ion-icon>
+      </div>
 
-        <div class="input-group">
-          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
-          <input [type]="passwordType" formControlName="password" placeholder="Contraseña">
-          <ion-button fill="clear" (click)="togglePasswordMode()" class="eye-btn">
-            <ion-icon slot="icon-only" [name]="passwordIcon"></ion-icon>
-          </ion-button>
+      <div class="options">
+        <div class="remember">
+          <ion-checkbox mode="md"></ion-checkbox>
+          <label>Recordarme</label>
         </div>
-        <ion-text color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-msg">
-          <small>Contraseña muy corta</small>
-        </ion-text>
+        <a href="#" class="forgot-pwd">¿Olvidaste tu contraseña?</a>
+      </div>
 
-        <div class="options">
-          <ion-checkbox labelPlacement="end" justify="start">Recordarme</ion-checkbox>
-          <a href="#" class="forgot-pwd">¿Olvidaste tu contraseña?</a>
-        </div>
-
-        <button type="submit" class="main-btn" [disabled]="loginForm.invalid">
-          Iniciar sesión
-        </button>
-      </form>
+      <button class="main-btn" (click)="ingresar()">Iniciar sesión</button>
 
       <div class="footer">
         <p>¿No tienes cuenta? <a routerLink="/register">Crear cuenta</a></p>
       </div>
-    </div>
 
+    </div>
   </div>
 </ion-content>
