@@ -1,261 +1,120 @@
-/* Fondo general un poco más gris para que resalten las tarjetas blancas */
-.custom-bg {
-  --background: #F8F9FA;
+.home-bg {
+  --background: #f8f9fa;
 }
 
-/* Encabezado */
-.top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px 20px 10px;
-
-  .greeting {
-    font-size: 26px;
-    font-weight: 700;
-    margin: 0;
-    color: #1A1A1A;
-  }
-  .wave { font-size: 26px; }
-  .btn-bell {
-    --color: #1A1A1A;
-    margin: 0;
-  }
-}
-
-/* Tarjeta Principal */
-.main-card {
-  background: #6C63FF;
-  border-radius: 24px;
-  padding: 25px;
-  margin: 15px 20px;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 12px 24px rgba(108, 99, 255, 0.3);
-
-  .card-subtitle {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    opacity: 0.9;
-  }
-
-  .points-display {
+.header-section {
+  padding: 20px 20px 0;
+  background: white;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  margin-bottom: 20px;
+  
+  .user-info {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    margin: 15px 0 25px;
-
-    .star-icon {
-      color: #FFC107;
-      font-size: 40px;
-    }
-    h2 {
-      margin: 0;
-      font-size: 46px;
-      font-weight: 800;
-    }
-    .pts-text {
-      font-size: 22px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
+    margin-bottom: 20px;
+    
+    h2 { margin: 0; font-size: 24px; font-weight: 800; color: #1a1a1a; }
+    .bell-icon { font-size: 24px; color: #1a1a1a; }
   }
 
-  .btn-yellow {
-    background: #FFC107;
-    color: #1A1A1A;
-    font-weight: 700;
-    border: none;
-    border-radius: 14px;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
-  }
+  .points-card {
+    background: linear-gradient(135deg, #6c63ff 0%, #5249e5 100%);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(108, 99, 255, 0.3);
+    margin-bottom: 20px;
 
-  .bg-star {
-    position: absolute;
-    right: -30px;
-    top: 10px;
-    font-size: 180px;
-    color: rgba(255, 255, 255, 0.05);
-    transform: rotate(15deg);
+    .points-header { font-size: 14px; opacity: 0.9; margin-bottom: 10px; }
+
+    .points-body {
+      display: flex; align-items: center; margin-bottom: 20px;
+      .star-icon { font-size: 32px; color: #ffc107; margin-right: 10px; }
+      h1 { 
+        margin: 0; font-size: 36px; font-weight: 800; 
+        span { font-size: 18px; font-weight: 500; opacity: 0.8; }
+      }
+    }
+
+    .canjear-btn {
+      background: #ffc107; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 25px; font-weight: 700; font-size: 14px; cursor: pointer;
+    }
   }
 }
 
-/* Títulos de sección */
 .section-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px 20px 15px;
-
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    color: #1A1A1A;
-  }
-  a {
-    color: #6C63FF;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-  }
+  display: flex; justify-content: space-between; align-items: center; padding: 0 20px 15px;
+  h3 { margin: 0; font-size: 18px; font-weight: 800; color: #1a1a1a; }
+  a { font-size: 14px; color: #6c63ff; font-weight: 700; text-decoration: none; cursor: pointer; }
 }
 
-/* Contenedor del Scroll Horizontal */
-.scrolling-wrapper {
+.rewards-scroll {
   display: flex;
   overflow-x: auto;
   padding: 0 20px 20px;
   gap: 15px;
   
-  /* Ocultar barra de scroll en navegadores */
   &::-webkit-scrollbar { display: none; }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 
-  .reward-card {
-    background: white;
-    border-radius: 20px;
-    padding: 20px 15px;
-    min-width: 130px;
+  .mini-reward-card {
+    min-width: 120px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 15px;
     text-align: center;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    cursor: pointer;
 
-    .icon-box {
-      height: 65px;
-      width: 65px;
-      border-radius: 16px;
-      margin: 0 auto 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      position: relative;
-
-      &.cafe { background: #FDF4E6; color: #C68E58; }
-      &.bag { background: #FFF9E6; color: #E5B83B; }
-      &.ticket { background: #F0F0FF; color: #6C63FF; }
-
-      .faded-icon { opacity: 0.3; }
-      .badge {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 15px;
-        font-weight: 800;
-        color: #E5B83B;
-      }
+    .img-container {
+      width: 65px; height: 65px; margin: 0 auto 10px; border-radius: 10px; overflow: hidden; background: #f8f9fa;
+      img { width: 100%; height: 100%; object-fit: cover; }
     }
 
-    h4 {
-      margin: 0 0 6px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #1A1A1A;
+    h4 { margin: 0 0 5px; font-size: 14px; font-weight: 700; color: #1a1a1a; }
+    p { margin: 0; font-size: 13px; color: #888; font-weight: 600; }
+  }
+}
+
+.recent-activity-list {
+  padding: 0 20px 30px;
+
+  .empty-state {
+    text-align: center; padding: 20px; color: #888; background: #ffffff; border-radius: 15px; font-size: 14px; font-weight: 600;
+  }
+
+  .activity-item {
+    display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+
+    .activity-info {
+      h4 { margin: 0 0 5px; font-size: 15px; font-weight: 700; color: #1a1a1a; }
+      span { font-size: 12px; font-weight: 600; color: #a0a0a0; text-transform: capitalize; }
     }
-    p {
-      margin: 0;
-      font-size: 13px;
-      color: #888;
-      font-weight: 600;
+
+    .activity-points {
+      font-weight: 800; font-size: 15px;
+      &.positive { color: #2dd36f; }
+      &.negative { color: #eb445a; }
     }
   }
 }
 
-/* Tarjeta Promociones */
-.promo-card {
-  background: #6C63FF;
-  border-radius: 20px;
-  margin: 0 20px 40px;
-  padding: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
-
-  .promo-content {
-    h3 {
-      margin: 0 0 8px;
-      font-size: 19px;
-      font-weight: 700;
-    }
-    p {
-      margin: 0;
-      font-size: 15px;
-      opacity: 0.9;
-    }
-  }
-  .promo-icon {
-    font-size: 60px;
-    color: #FFC107;
-  }
-}
-
-/* Estilos para el Modal Personalizado */
+/* Estilos de tu modal original adaptados al nuevo fondo */
 .custom-modal {
-  --height: auto;
-  --width: 85%;
-  --border-radius: 35px;
-  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-
+  --height: auto; --width: 85%; --border-radius: 35px; --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
   .modal-wrapper {
-    padding: 30px 20px;
-    background: white;
-    text-align: center;
-
+    padding: 30px 20px; background: white; text-align: center;
     .modal-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
+      display: flex; flex-direction: column; align-items: center;
       .icon-circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 50px;
-        margin-bottom: 20px;
-
+        width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; margin-bottom: 20px;
         &.success-color { background: #E7F9ED; color: #2DD36F; }
         &.error-color { background: #FFF4E5; color: #FFC107; }
       }
-
-      h2 {
-        margin: 0 0 15px;
-        font-size: 24px;
-        font-weight: 800;
-        color: #1A1A1A;
-      }
-
-      p {
-        margin: 0 0 30px;
-        font-size: 16px;
-        color: #666;
-        line-height: 1.5;
-        b { color: #1A1A1A; font-weight: 700; }
-      }
-
-      .modal-btn {
-        width: 100%;
-        height: 55px;
-        background: #6C63FF;
-        color: white;
-        border: none;
-        border-radius: 18px;
-        font-size: 16px;
-        font-weight: 700;
-        box-shadow: 0 8px 15px rgba(108, 99, 255, 0.2);
-        cursor: pointer;
-      }
+      h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
+      p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
+      .modal-btn { width: 100%; height: 55px; background: #6C63FF; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
     }
   }
 }

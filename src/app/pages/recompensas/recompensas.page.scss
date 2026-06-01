@@ -1,73 +1,88 @@
 .recompensas-bg {
-    --background: #F8F9FA;
-  }
-  
-  .header-section {
-    padding: 40px 25px 20px;
-    background: white;
-    border-radius: 0 0 35px 35px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    margin-bottom: 20px;
-  
-    h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; color: #1A1A1A; }
-    p { margin: 0; font-size: 16px; color: #666; strong { color: #6C63FF; font-weight: 700; } }
-  }
-  
-  .catalog-grid {
-    padding: 0 20px 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .reward-item {
-    background: white;
-    border-radius: 20px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-    transition: transform 0.2s ease;
-    cursor: pointer;
-  
-    &:active { transform: scale(0.98); }
-  
-    .icon-box {
-      width: 60px; height: 60px; border-radius: 15px; display: flex; justify-content: center; align-items: center; font-size: 28px; margin-right: 15px;
-      
-      &.cafe { background: #FFF4E5; color: #FF9800; }
-      &.bag { background: #E5F0FF; color: #2196F3; }
-      &.ticket { background: #F3E5FF; color: #9C27B0; }
-      &.cinema { background: #FFE5E5; color: #F44336; }
-      &.merch { background: #E5FFF4; color: #00C853; }
+  --background: #F8F9FA;
+}
+
+.header-section {
+  padding: 40px 25px 20px;
+  background: white;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  margin-bottom: 20px;
+
+  h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; color: #1A1A1A; }
+  p { margin: 0; font-size: 16px; color: #666; strong { color: #6C63FF; font-weight: 700; } }
+}
+
+.catalog-grid {
+  padding: 0 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reward-item {
+  background: white;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+
+  &:active { transform: scale(0.98); }
+
+  .icon-box {
+    width: 75px; /* Tamaño ideal para miniaturas */
+    height: 75px; 
+    min-width: 75px;
+    border-radius: 15px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-right: 15px;
+    overflow: hidden; /* Corta automáticamente lo que sobresalga del cuadrado */
+    
+    &.cafe { background: #FFF4E5; color: #FF9800; }
+    &.bag { background: #E5F0FF; color: #2196F3; }
+    &.ticket { background: #F3E5FF; color: #9C27B0; }
+    &.cinema { background: #FFE5E5; color: #F44336; }
+    &.merch { background: #E5FFF4; color: #00C853; }
+
+    /* Imagen encapsulada */
+    .recompensa-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Llena el marco sin deformar la foto */
     }
-  
-    .item-details {
-      flex: 1;
-      h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #1A1A1A; }
-      p { margin: 0; font-size: 14px; font-weight: 600; color: #888; }
-    }
-  
-    .btn-canjear {
-      background: #F0F0FF; color: #6C63FF; border: none; padding: 8px 16px; border-radius: 12px; font-weight: 700; font-size: 13px;
-    }
   }
-  
-  /* Estilos para el Modal Personalizado */
-  .custom-modal {
-    --height: auto; --width: 85%; --border-radius: 35px; --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-    .modal-wrapper {
-      padding: 30px 20px; background: white; text-align: center;
-      .modal-body {
-        display: flex; flex-direction: column; align-items: center;
-        .icon-circle {
-          width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; margin-bottom: 20px;
-          &.success-color { background: #E7F9ED; color: #2DD36F; }
-          &.error-color { background: #FFF4E5; color: #FFC107; }
-        }
-        h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
-        p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
-        .modal-btn { width: 100%; height: 55px; background: #6C63FF; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
+
+  .item-details {
+    flex: 1;
+    h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #1A1A1A; }
+    p { margin: 0; font-size: 14px; font-weight: 600; color: #888; }
+  }
+
+  .btn-canjear {
+    background: #F0F0FF; color: #6C63FF; border: none; padding: 8px 16px; border-radius: 12px; font-weight: 700; font-size: 13px;
+  }
+}
+
+/* Estilos para el Modal Personalizado */
+.custom-modal {
+  --height: auto; --width: 85%; --border-radius: 35px; --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  .modal-wrapper {
+    padding: 30px 20px; background: white; text-align: center;
+    .modal-body {
+      display: flex; flex-direction: column; align-items: center;
+      .icon-circle {
+        width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; margin-bottom: 20px;
+        &.success-color { background: #E7F9ED; color: #2DD36F; }
+        &.error-color { background: #FFF4E5; color: #FFC107; }
       }
+      h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
+      p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
+      .modal-btn { width: 100%; height: 55px; background: #6C63FF; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
     }
   }
+}

@@ -1,80 +1,70 @@
-<ion-content class="custom-bg">
-  
-  <div class="top-header">
-    <h1 class="greeting">Hola {{usuario.nombre.split(' ')}} <span class="wave">👋</span></h1>
-    <ion-button fill="clear" class="btn-bell">
-      <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
-    </ion-button>
-  </div>
-
-  <div class="main-card">
-    <p class="card-subtitle">Tus puntos actuales</p>
-    <div class="points-display">
-      <ion-icon name="star" class="star-icon"></ion-icon>
-      <h2>{{usuario.puntos}} <span class="pts-text">pts</span></h2>
+<ion-content class="home-bg">
+  <div class="header-section">
+    <div class="user-info">
+      <h2>Hola {{ usuario?.nombre?.split(' ')[0] || 'Usuario' }} 👋</h2>
+      <ion-icon name="notifications-outline" class="bell-icon"></ion-icon>
     </div>
-    <button class="btn-yellow" (click)="procesarCanje('Cupón Especial', 500)">Canjear ahora</button>
-    <ion-icon name="star" class="bg-star"></ion-icon>
+
+    <div class="points-card">
+      <div class="points-header">
+        <span>Tus puntos actuales</span>
+      </div>
+      <div class="points-body">
+        <ion-icon name="star" class="star-icon"></ion-icon>
+        <h1>{{ usuario?.puntos || 0 }} <span>pts</span></h1>
+      </div>
+      <button class="canjear-btn" (click)="irARecompensas()">Canjear ahora</button>
+    </div>
   </div>
 
   <div class="section-title">
     <h3>Recompensas destacadas</h3>
-    <a href="#">Ver todas</a>
+    <a (click)="irARecompensas()">Ver todas</a>
   </div>
 
-  <div class="scrolling-wrapper">
-    
-    <div class="reward-card" (click)="procesarCanje('Café gratis', 500)">
-      <div class="icon-box cafe">
-        <ion-icon name="cafe-outline"></ion-icon>
+  <div class="rewards-scroll">
+    <div class="mini-reward-card" *ngFor="let item of destacadas" (click)="procesarCanje(item.nombre, item.costo)">
+      <div class="img-container">
+        <img [src]="item.imagen" [alt]="item.nombre">
       </div>
-      <h4>Café gratis</h4>
-      <p>500 pts</p>
-    </div>
-    
-    <div class="reward-card" (click)="procesarCanje('Descuento 20%', 800)">
-      <div class="icon-box bag">
-        <ion-icon name="bag-outline" class="faded-icon"></ion-icon>
-        <span class="badge">20%</span>
-      </div>
-      <h4>Descuento 20%</h4>
-      <p>800 pts</p>
-    </div>
-    
-    <div class="reward-card" (click)="procesarCanje('Cupón S/15', 1000)">
-      <div class="icon-box ticket">
-        <ion-icon name="ticket-outline"></ion-icon>
-      </div>
-      <h4>Cupón S/15</h4>
-      <p>1000 pts</p>
+      <h4>{{ item.nombre }}</h4>
+      <p>{{ item.costo }} pts</p>
     </div>
   </div>
 
-  <div class="section-title">
-    <h3>Promociones activas</h3>
+  <div class="section-title recent-title">
+    <h3>Tus últimos movimientos</h3>
+    <a routerLink="/tabs/historial">Ver todo</a>
   </div>
 
-  <div class="promo-card">
-    <div class="promo-content">
-      <h3>Duplica tus puntos</h3>
-      <p>este fin de semana</p>
+  <div class="recent-activity-list">
+    <div class="empty-state" *ngIf="transaccionesRecientes.length === 0">
+      <p>Aún no tienes movimientos.</p>
     </div>
-    <ion-icon name="gift-outline" class="promo-icon"></ion-icon>
+    
+    <div class="activity-item" *ngFor="let tx of transaccionesRecientes">
+      <div class="activity-info">
+        <h4>{{ tx.descripcion }}</h4>
+        <span>{{ tx.fecha || 'Reciente' }}</span>
+      </div>
+      <div class="activity-points" [ngClass]="{'positive': tx.puntos > 0, 'negative': tx.puntos < 0}">
+        {{ tx.puntos > 0 ? '+' : '' }}{{ tx.puntos }} pts
+      </div>
+    </div>
   </div>
-<ion-modal [isOpen]="isModalOpen" (didDismiss)="isModalOpen = false" class="custom-modal">
-  <ng-template>
-    <div class="modal-wrapper">
-      <div class="modal-body">
-        <div class="icon-circle" [ngClass]="modalData.color">
-          <ion-icon [name]="modalData.icono"></ion-icon>
+
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()" class="custom-modal">
+    <ng-template>
+      <div class="modal-wrapper">
+        <div class="modal-body">
+          <div class="icon-circle" [ngClass]="modalData.color">
+            <ion-icon [name]="modalData.icono"></ion-icon>
+          </div>
+          <h2>{{ modalData.titulo }}</h2>
+          <p [innerHTML]="modalData.mensaje"></p>
+          <button class="modal-btn" (click)="cerrarModal()">Entendido</button>
         </div>
-        
-        <h2>{{ modalData.titulo }}</h2>
-        <p [innerHTML]="modalData.mensaje"></p>
-        
-        <button class="modal-btn" (click)="cerrarModal()">Entendido</button>
       </div>
-    </div>
-  </ng-template>
-</ion-modal>
+    </ng-template>
+  </ion-modal>
 </ion-content>
