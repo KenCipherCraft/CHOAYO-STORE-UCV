@@ -1,0 +1,62 @@
+.historial-bg {
+  --background: #FFFFFF;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px 10px;
+
+  h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    color: #1A1A1A;
+  }
+  
+  ion-button {
+    margin: 0;
+    --padding-end: 0;
+    --padding-start: 0;
+    ion-icon { font-size: 24px; }
+  }
+}
+
+.list-container {
+  padding: 10px 25px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #F4F5F7;
+  
+  .item-info {
+    h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 700;
+      
+      &.text-green { color: #2DD36F; } /* Verde para ingresos */
+      &.text-red { color: #EB445A; }   /* Rojo para gastos */
+    }
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #888;
+      font-weight: 500;
+    }
+  }
+
+  .item-date {
+    span {
+      font-size: 13px;
+      color: #A0AEC0;
+      font-weight: 600;
+    }
+  }
+}

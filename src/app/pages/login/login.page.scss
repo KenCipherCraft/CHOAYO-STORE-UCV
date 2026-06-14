@@ -1,0 +1,179 @@
+.custom-bg {
+  --background: #F8F9FA;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  padding: 30px 20px;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 35px;
+
+  .logo-box {
+    width: 75px;
+    height: 75px;
+    background: linear-gradient(135deg, #8A84FF 0%, #6C63FF 100%);
+    border-radius: 22px;
+    margin: 0 auto 15px;
+    box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 5px;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.welcome-text {
+  margin-bottom: 25px;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 15px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.form-container {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 35px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    background: #F4F5F7;
+    border-radius: 18px;
+    padding: 0 18px;
+    margin-bottom: 16px;
+    height: 60px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    /* Efecto al hacer clic en el input */
+    &:focus-within {
+      background: #FFFFFF;
+      border-color: #6C63FF;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+    }
+
+    ion-icon {
+      color: #A0AEC0;
+      font-size: 22px;
+      margin-right: 12px;
+
+      &.eye-icon {
+        margin-right: 0;
+        margin-left: 12px;
+        cursor: pointer;
+        color: #6C63FF;
+      }
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      height: 100%;
+      outline: none;
+      font-size: 15px;
+      color: #1A1A1A;
+      font-weight: 500;
+
+      &::placeholder {
+        color: #A0AEC0;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 30px;
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      ion-checkbox {
+        --size: 20px;
+        --checkbox-background-checked: #6C63FF;
+        --border-color-checked: #6C63FF;
+      }
+
+      label {
+        font-size: 14px;
+        color: #666;
+        font-weight: 500;
+      }
+    }
+
+    .forgot-pwd {
+      font-size: 14px;
+      color: #6C63FF;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+
+  .main-btn {
+    width: 100%;
+    height: 55px;
+    background: #6C63FF;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.25);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .footer {
+    margin-top: 25px;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+
+      a {
+        color: #6C63FF;
+        font-weight: 700;
+        text-decoration: none;
+      }
+    }
+  }
+}

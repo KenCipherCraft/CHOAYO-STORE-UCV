@@ -1,0 +1,27 @@
+<ion-content class="historial-bg">
+  
+  <div class="header-section">
+    <h2>Historial</h2>
+    <ion-button fill="clear" color="dark">
+      <ion-icon slot="icon-only" name="funnel-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="list-container">
+    <div class="history-item" *ngFor="let item of transacciones">
+      
+      <div class="item-info">
+        <h3 [class]="item.tipo === 'ingreso' ? 'text-green' : 'text-red'">
+          {{ item.tipo === 'ingreso' ? '+' : '-' }}{{ item.monto }} pts
+        </h3>
+        <p>{{ item.descripcion }}</p>
+      </div>
+
+      <div class="item-date">
+        <span>{{ item.fecha }}</span>
+      </div>
+      
+    </div>
+  </div>
+
+</ion-content>

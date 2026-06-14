@@ -1,0 +1,51 @@
+<ion-content class="edit-bg">
+  <div class="header-nav">
+    <button class="back-btn" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <h2>Editar Perfil</h2>
+    <div style="width: 40px;"></div> </div>
+
+  <div class="profile-photo-section">
+    <div class="photo-container">
+      <div class="photo-circle">
+        {{ usuario?.nombre?.charAt(0) || 'U' }}
+      </div>
+      <button class="change-photo-btn">
+        <ion-icon name="camera-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="input-group">
+      <label>Nombre Completo</label>
+      <input type="text" [value]="usuario.nombre" placeholder="Ingresa tu nombre">
+    </div>
+
+    <div class="input-group">
+      <label>Correo Electrónico</label>
+      <input type="email" [value]="usuario.correo" placeholder="ejemplo@correo.com" readonly style="background: #f0f0f0; color: #888;">
+      <span class="help-text">El correo no se puede modificar.</span>
+    </div>
+
+    <div class="input-group">
+      <label>Teléfono</label>
+      <input type="tel" placeholder="987 654 321">
+    </div>
+  </div>
+
+  <div class="action-footer">
+    <button class="save-btn" *ngIf="!guardando && !guardadoExitoso" (click)="simularGuardado()">
+      Guardar Cambios
+    </button>
+    
+    <button class="save-btn loading" *ngIf="guardando">
+      Guardando...
+    </button>
+
+    <button class="save-btn success" *ngIf="guardadoExitoso">
+      <ion-icon name="checkmark-circle-outline"></ion-icon> ¡Guardado!
+    </button>
+  </div>
+</ion-content>

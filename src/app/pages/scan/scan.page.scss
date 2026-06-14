@@ -1,0 +1,142 @@
+/* Fondo oscuro simulando la vista de cámara */
+.scanner-bg {
+  --background: #1A1A1A; 
+}
+
+.scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  color: white;
+
+  h2 { margin: 0; font-size: 20px; font-weight: 700; }
+  ion-icon { font-size: 28px; }
+}
+
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 65%;
+  margin-top: 10px;
+
+  p {
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 15px;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+}
+
+/* Diseño del recuadro de la cámara */
+.scan-frame {
+  width: 250px;
+  height: 250px;
+  position: relative;
+
+  .corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: #FFC107; /* Color amarillo corporativo */
+    border-style: solid;
+  }
+
+  .top-left { top: 0; left: 0; border-width: 4px 0 0 4px; border-radius: 10px 0 0 0; }
+  .top-right { top: 0; right: 0; border-width: 4px 4px 0 0; border-radius: 0 10px 0 0; }
+  .bottom-left { bottom: 0; left: 0; border-width: 0 0 4px 4px; border-radius: 0 0 0 10px; }
+  .bottom-right { bottom: 0; right: 0; border-width: 0 4px 4px 0; border-radius: 0 0 10px 0; }
+
+  /* Animación del láser */
+  .laser {
+    width: 100%;
+    height: 2px;
+    background: #FFC107;
+    position: absolute;
+    top: 50%;
+    box-shadow: 0 0 15px #FFC107;
+    animation: scanAnimation 2s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes scanAnimation {
+  0% { top: 5%; }
+  100% { top: 95%; }
+}
+
+.scanner-footer {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .manual-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+
+    ion-icon { font-size: 24px; color: #FFC107; }
+  }
+}
+
+/* Reutilización del diseño del Modal */
+.custom-modal {
+  --height: auto;
+  --width: 85%;
+  --border-radius: 35px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+
+  .modal-wrapper {
+    padding: 30px 20px;
+    background: white;
+    text-align: center;
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .icon-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        margin-bottom: 20px;
+        &.success-color { background: #E7F9ED; color: #2DD36F; }
+      }
+
+      h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
+      p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
+
+      .modal-btn {
+        width: 100%;
+        height: 55px;
+        background: #6C63FF;
+        color: white;
+        border: none;
+        border-radius: 18px;
+        font-size: 16px;
+        font-weight: 700;
+        box-shadow: 0 8px 15px rgba(108, 99, 255, 0.2);
+        cursor: pointer;
+      }
+    }
+  }
+}
