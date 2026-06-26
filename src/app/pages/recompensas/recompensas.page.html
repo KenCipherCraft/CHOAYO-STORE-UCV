@@ -1,34 +1,137 @@
 <ion-content class="recompensas-bg">
-  <div class="header-section">
-    <h2>Catálogo de Recompensas</h2>
-    <p>Tienes <strong>{{ usuario.puntos }} pts</strong> disponibles</p>
+
+  <div class="hero-recompensas">
+
+    <div class="hero-text">
+      <p>Centro de beneficios</p>
+      <h2>Catálogo de Recompensas</h2>
+      <span>Canjea tus puntos por premios exclusivos de CHOAYO.</span>
+    </div>
+
+    <div class="points-summary">
+      <div class="star-badge">
+        <ion-icon name="star"></ion-icon>
+      </div>
+
+      <div>
+        <h1>{{ usuario.puntos }}</h1>
+        <p>puntos disponibles</p>
+      </div>
+    </div>
+
   </div>
 
-  <div class="catalog-grid">
-    <div class="reward-item" *ngFor="let item of catalogo">
-      <div class="icon-box" [ngClass]="item.colorClass">
-        <img [src]="item.imagen" [alt]="item.nombre" class="recompensa-img" />
-      </div>
-      <div class="item-details">
-        <h3>{{ item.nombre }}</h3>
-        <p>{{ item.costo }} pts</p>
-      </div>
-      <button class="btn-canjear" (click)="confirmarCanje(item)">Canjear</button>
+  <div class="section-title">
+    <div>
+      <p>Premios disponibles</p>
+      <h3>Elige tu recompensa</h3>
     </div>
   </div>
 
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()" class="custom-modal">
+  <div class="catalog-grid">
+
+    <div
+      class="reward-card"
+      *ngFor="let item of catalogo"
+      [ngClass]="item.colorClass"
+    >
+
+      <div class="reward-image">
+        <img
+          [src]="item.imagen"
+          [alt]="item.nombre"
+        />
+      </div>
+
+      <div class="reward-content">
+
+        <div class="reward-header">
+          <div>
+            <h3>{{ item.nombre }}</h3>
+
+            <div class="cost-info">
+              <ion-icon name="star"></ion-icon>
+              <span>{{ item.costo }} pts</span>
+            </div>
+          </div>
+
+          <span
+            class="status-pill"
+            [ngClass]="usuario.puntos >= item.costo ? 'available' : 'locked'"
+          >
+            {{ usuario.puntos >= item.costo ? 'Disponible' : 'Bloqueado' }}
+          </span>
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-track">
+            <div
+              class="progress-fill"
+              [style.width.%]="calcularProgreso(item.costo)"
+            ></div>
+          </div>
+
+          <div class="progress-text">
+            <span>{{ usuario.puntos }} / {{ item.costo }} pts</span>
+
+            <strong *ngIf="usuario.puntos < item.costo">
+              Te faltan {{ item.costo - usuario.puntos }} pts
+            </strong>
+
+            <strong *ngIf="usuario.puntos >= item.costo">
+              Listo para canjear
+            </strong>
+          </div>
+        </div>
+
+        <button
+          class="btn-canjear"
+          [ngClass]="usuario.puntos >= item.costo ? 'enabled' : 'disabled'"
+          (click)="confirmarCanje(item)"
+        >
+          {{ usuario.puntos >= item.costo ? 'Canjear ahora' : 'No disponible' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <ion-modal
+    [isOpen]="isModalOpen"
+    (didDismiss)="cerrarModal()"
+    class="custom-modal"
+  >
     <ng-template>
+
       <div class="modal-wrapper">
+
         <div class="modal-body">
-          <div class="icon-circle" [ngClass]="modalData.color === 'success' ? 'success-color' : 'error-color'">
+
+          <div
+            class="icon-circle"
+            [ngClass]="modalData.color === 'success' ? 'success-color' : 'error-color'"
+          >
             <ion-icon [name]="modalData.icono"></ion-icon>
           </div>
+
           <h2>{{ modalData.titulo }}</h2>
+
           <p>{{ modalData.mensaje }}</p>
-          <button class="modal-btn" (click)="cerrarModal()">Aceptar</button>
+
+          <button
+            class="modal-btn"
+            (click)="cerrarModal()"
+          >
+            Aceptar
+          </button>
+
         </div>
+
       </div>
+
     </ng-template>
   </ion-modal>
+
 </ion-content>

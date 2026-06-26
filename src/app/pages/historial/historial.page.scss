@@ -1,62 +1,254 @@
 .historial-bg {
-  --background: #FFFFFF;
+  --background: #f4f6fb;
+}
+
+.hero-historial {
+  background: linear-gradient(135deg, #6c63ff 0%, #4d44e8 100%);
+  padding: 30px 22px 42px;
+  border-radius: 0 0 38px 38px;
+  color: white;
+  box-shadow: 0 14px 35px rgba(108, 99, 255, 0.25);
 }
 
 .header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 20px 10px;
+
+  p {
+    margin: 0 0 5px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.85;
+  }
 
   h2 {
     margin: 0;
-    font-size: 26px;
-    font-weight: 800;
-    color: #1A1A1A;
+    font-size: 30px;
+    font-weight: 900;
   }
-  
-  ion-button {
+}
+
+.filter-btn {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+
+  ion-icon {
+    font-size: 23px;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.summary-card {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 26px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+}
+
+.summary-item {
+  flex: 1;
+
+  span {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+
+  h3 {
     margin: 0;
-    --padding-end: 0;
-    --padding-start: 0;
-    ion-icon { font-size: 24px; }
+    color: #2dd36f;
+    font-size: 22px;
+    font-weight: 900;
+
+    &.red {
+      color: #ffcfda;
+    }
+  }
+}
+
+.summary-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0 18px;
+}
+
+.section-title {
+  padding: 24px 22px 16px;
+
+  p {
+    margin: 0 0 4px;
+    color: #6c63ff;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  h3 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 21px;
+    font-weight: 900;
   }
 }
 
 .list-container {
-  padding: 10px 25px;
+  padding: 0 20px 90px;
 }
 
-.history-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #F4F5F7;
-  
-  .item-info {
-    h3 {
-      margin: 0 0 6px;
-      font-size: 18px;
-      font-weight: 700;
-      
-      &.text-green { color: #2DD36F; } /* Verde para ingresos */
-      &.text-red { color: #EB445A; }   /* Rojo para gastos */
-    }
-    
-    p {
-      margin: 0;
-      font-size: 14px;
-      color: #888;
-      font-weight: 500;
-    }
+.empty-state {
+  text-align: center;
+  background: white;
+  border-radius: 24px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+
+  ion-icon {
+    font-size: 42px;
+    color: #6c63ff;
+    margin-bottom: 8px;
   }
 
-  .item-date {
-    span {
-      font-size: 13px;
-      color: #A0AEC0;
-      font-weight: 600;
-    }
+  h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+}
+
+.history-card {
+  background: white;
+  border-radius: 22px;
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.055);
+  position: relative;
+  overflow: hidden;
+  animation: cardIn 0.45s ease both;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
+}
+
+.history-card::before {
+  content: "";
+  width: 6px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.history-card.income::before {
+  background: #2dd36f;
+}
+
+.history-card.expense::before {
+  background: #eb445a;
+}
+
+.history-icon {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-card.income .history-icon {
+  background: #e7f9ed;
+  color: #2dd36f;
+}
+
+.history-card.expense .history-icon {
+  background: #fff0f0;
+  color: #eb445a;
+}
+
+.history-icon ion-icon {
+  font-size: 25px;
+}
+
+.item-info {
+  flex: 1;
+
+  h3 {
+    margin: 0 0 5px;
+    font-size: 15px;
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #9aa3b2;
+    font-weight: 700;
+  }
+}
+
+.item-points {
+  font-size: 15px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.text-green {
+  color: #2dd36f;
+}
+
+.text-red {
+  color: #eb445a;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

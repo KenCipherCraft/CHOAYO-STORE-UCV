@@ -1,93 +1,203 @@
 <ion-content class="perfil-bg">
 
-  <div class="profile-header">
+  <div class="profile-hero">
 
-    <div class="avatar-container" (click)="mostrarAvatares = true">
+    <div class="top-decoration"></div>
 
-      <img
-        *ngIf="avatarSeleccionado"
-        [src]="avatarSeleccionado"
-        class="profile-img"
-      />
+    <div class="avatar-wrapper">
 
-      <div *ngIf="!avatarSeleccionado" class="avatar-default">
-        <h2>{{ usuario?.nombre?.charAt(0) || 'U' }}</h2>
+      <div class="avatar-container" (click)="mostrarAvatares = true">
+
+        <img
+          *ngIf="avatarSeleccionado"
+          [src]="avatarSeleccionado"
+          class="profile-img"
+        />
+
+        <div *ngIf="!avatarSeleccionado" class="avatar-default">
+          <h2>{{ usuario?.nombre?.charAt(0) || 'U' }}</h2>
+        </div>
+
       </div>
+
+      <button class="change-photo-btn" (click)="mostrarAvatares = true">
+        Cambiar foto
+      </button>
 
     </div>
 
-    <p class="change-avatar" (click)="mostrarAvatares = true">
-      Cambiar avatar
-    </p>
-
     <h2>{{ usuario?.nombre }}</h2>
     <p>{{ usuario?.correo }}</p>
+
   </div>
 
   <div class="avatar-modal" *ngIf="mostrarAvatares">
+
     <div class="avatar-box">
 
-      <h3>Selecciona tu avatar</h3>
+      <h3>Cambiar foto de perfil</h3>
+
+      <label class="upload-photo-btn">
+        📷 Subir mi foto
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="subirFotoUsuario($event)"
+        />
+      </label>
+
+      <p class="modal-subtitle">
+        O selecciona uno de nuestros avatares
+      </p>
 
       <div class="avatar-grid">
+
         <img
           *ngFor="let avatar of avatares"
           [src]="avatar"
           class="avatar-option"
           (click)="seleccionarAvatar(avatar)"
         />
+
       </div>
 
-      <button class="close-btn" (click)="mostrarAvatares = false">
-        Cerrar
-      </button>
+      <div class="modal-actions">
 
-    </div>
-  </div>
+        <button
+          class="delete-btn"
+          *ngIf="avatarSeleccionado"
+          (click)="eliminarFotoPerfil()"
+        >
+          Quitar foto
+        </button>
 
-  <div class="level-card">
-    <div class="level-info">
-      <span class="badge">NIVEL {{ usuario?.nivel || 'ORO' }}</span>
-      <h3>Tus Puntos</h3>
-    </div>
+        <button
+          class="close-btn"
+          (click)="mostrarAvatares = false"
+        >
+          Cerrar
+        </button>
 
-    <div class="points-info">
-      <ion-icon name="star"></ion-icon>
-      <h2>{{ usuario?.puntos || 0 }}</h2>
-    </div>
-  </div>
-
-  <div class="options-menu">
-
-    <a class="menu-item" routerLink="/editar-perfil">
-      <div class="item-icon" style="background: #e5f0ff; color: #2196f3;">
-        <ion-icon name="person-outline"></ion-icon>
       </div>
-      <div class="item-text">Editar Perfil</div>
-      <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
-    </a>
 
-    <div class="menu-item">
-      <div class="item-icon bg-purple">
-        <ion-icon name="shield-checkmark-outline"></ion-icon>
-      </div>
-      <div class="item-text">Seguridad y Contraseña</div>
-      <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
-    </div>
-
-    <div class="menu-item">
-      <div class="item-icon" style="background: #fff4e5; color: #ff9800;">
-        <ion-icon name="notifications-outline"></ion-icon>
-      </div>
-      <div class="item-text">Notificaciones</div>
-      <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
     </div>
 
   </div>
 
-  <button class="logout-btn" (click)="cerrarSesion()">
-    <ion-icon name="log-out-outline"></ion-icon>
-    Cerrar Sesión
-  </button>
+  <div class="profile-content">
+
+    <div class="points-card">
+
+      <div class="points-left">
+        <span class="level-badge">
+          NIVEL {{ usuario?.nivel || 'ORO' }}
+        </span>
+
+        <h3>Tus Puntos</h3>
+        <p>Acumula más puntos escaneando tus compras.</p>
+      </div>
+
+      <div class="points-right">
+        <ion-icon name="star"></ion-icon>
+        <h2>{{ usuario?.puntos || 0 }}</h2>
+      </div>
+
+    </div>
+
+    <div class="section-label">
+      <p>Configuración</p>
+      <h3>Mi cuenta</h3>
+    </div>
+
+    <div class="options-menu">
+
+      <a class="menu-item" routerLink="/editar-perfil">
+
+        <div class="item-icon blue">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+
+        <div class="item-text">
+          <h4>Editar Perfil</h4>
+          <p>Actualiza tus datos personales</p>
+        </div>
+
+        <ion-icon
+          name="chevron-forward-outline"
+          class="arrow-icon"
+        ></ion-icon>
+
+      </a>
+
+      <a
+        class="menu-item"
+        href="https://wa.me/51900475375?text=Hola%20CHOAYO%20STORE,%20quiero%20hacer%20una%20consulta"
+        target="_blank"
+      >
+
+        <div class="item-icon green">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </div>
+
+        <div class="item-text">
+          <h4>Contactar por WhatsApp</h4>
+          <p>Comunícate directamente con la tienda</p>
+        </div>
+
+        <ion-icon
+          name="chevron-forward-outline"
+          class="arrow-icon"
+        ></ion-icon>
+
+      </a>
+
+      <div class="menu-item">
+
+        <div class="item-icon purple">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+        </div>
+
+        <div class="item-text">
+          <h4>Seguridad y Contraseña</h4>
+          <p>Administra el acceso a tu cuenta</p>
+        </div>
+
+        <ion-icon
+          name="chevron-forward-outline"
+          class="arrow-icon"
+        ></ion-icon>
+
+      </div>
+
+      <div class="menu-item">
+
+        <div class="item-icon orange">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div>
+
+        <div class="item-text">
+          <h4>Notificaciones</h4>
+          <p>Configura alertas y novedades</p>
+        </div>
+
+        <ion-icon
+          name="chevron-forward-outline"
+          class="arrow-icon"
+        ></ion-icon>
+
+      </div>
+
+    </div>
+
+    <button
+      class="logout-btn"
+      (click)="cerrarSesion()"
+    >
+      <ion-icon name="log-out-outline"></ion-icon>
+      Cerrar Sesión
+    </button>
+
+  </div>
 
 </ion-content>

@@ -1,47 +1,106 @@
 <ion-content class="scanner-bg">
-  
+
+  <div class="scanner-overlay"></div>
+
   <div class="scanner-header">
-    <ion-button fill="clear" color="light" routerLink="/tabs/home">
-      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-    </ion-button>
-    <h2>Escanear QR</h2>
-    <ion-button fill="clear" color="light">
-      <ion-icon slot="icon-only" name="flash-outline"></ion-icon>
-    </ion-button>
+
+    <button class="header-btn" routerLink="/tabs/home">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+    <div class="header-title">
+      <p>CHOAYO APP</p>
+      <h2>Escanear QR</h2>
+    </div>
+
+    <button class="header-btn">
+      <ion-icon name="flash-outline"></ion-icon>
+    </button>
+
   </div>
 
   <div class="scanner-container">
-    <div class="scan-frame">
-      <div class="corner top-left"></div>
-      <div class="corner top-right"></div>
-      <div class="corner bottom-left"></div>
-      <div class="corner bottom-right"></div>
-      
-      <div class="laser"></div>
+
+    <div class="scanner-card">
+
+      <div class="scan-frame">
+
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+
+        <div class="qr-placeholder">
+          <ion-icon name="qr-code-outline"></ion-icon>
+        </div>
+
+        <div class="laser"></div>
+
+      </div>
+
+      <h3>Escanea tu boleta</h3>
+
+      <p>
+        Centra el código QR dentro del recuadro para registrar tu compra
+        y ganar puntos automáticamente.
+      </p>
+
     </div>
-    
-    <p>Centra el código QR de tu boleta<br>en el recuadro para ganar puntos</p>
+
+    <div class="tip-card">
+
+      <div class="tip-icon">
+        <ion-icon name="bulb-outline"></ion-icon>
+      </div>
+
+      <div>
+        <h4>Consejo rápido</h4>
+        <p>Mantén el QR bien iluminado y evita mover la cámara.</p>
+      </div>
+
+    </div>
+
   </div>
 
   <div class="scanner-footer">
+
     <button class="manual-btn" (click)="simularEscaneo()">
       <ion-icon name="scan-outline"></ion-icon>
       Simular escaneo de compra
     </button>
+
   </div>
 
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarYVolver()" class="custom-modal">
+  <ion-modal
+    [isOpen]="isModalOpen"
+    (didDismiss)="cerrarYVolver()"
+    class="custom-modal"
+  >
     <ng-template>
+
       <div class="modal-wrapper">
+
         <div class="modal-body">
+
           <div class="icon-circle success-color">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
           </div>
+
           <h2>¡Código validado!</h2>
-          <p>Se han añadido <b>{{ puntosGanados }} pts</b> a tu cuenta por tu última compra.</p>
-          <button class="modal-btn" (click)="cerrarYVolver()">Ir al Inicio</button>
+
+          <p>
+            Se han añadido <b>{{ puntosGanados }} pts</b>
+            a tu cuenta por tu última compra.
+          </p>
+
+          <button class="modal-btn" (click)="cerrarYVolver()">
+            Ir al Inicio
+          </button>
+
         </div>
+
       </div>
+
     </ng-template>
   </ion-modal>
 

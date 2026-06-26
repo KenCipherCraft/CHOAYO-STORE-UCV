@@ -1,99 +1,316 @@
-/* Fondo oscuro simulando la vista de cámara */
 .scanner-bg {
-  --background: #1A1A1A; 
+  --background: #111217;
+  position: relative;
+}
+
+.scanner-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(108, 99, 255, 0.28), transparent 35%),
+    radial-gradient(circle at bottom, rgba(255, 193, 7, 0.16), transparent 30%),
+    linear-gradient(180deg, #181923 0%, #101116 100%);
+  z-index: 0;
 }
 
 .scanner-header {
+  position: relative;
+  z-index: 2;
+  padding: 22px 20px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
   color: white;
+}
 
-  h2 { margin: 0; font-size: 20px; font-weight: 700; }
-  ion-icon { font-size: 28px; }
+.header-title {
+  text-align: center;
+
+  p {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #ffc107;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 900;
+  }
+}
+
+.header-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+
+  ion-icon {
+    font-size: 24px;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .scanner-container {
+  position: relative;
+  z-index: 2;
+  min-height: 68vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 65%;
-  margin-top: 10px;
+  padding: 10px 20px 140px;
+}
 
-  p {
-    color: white;
-    text-align: center;
-    margin-top: 40px;
-    font-size: 15px;
-    opacity: 0.8;
-    line-height: 1.5;
+.scanner-card {
+  width: 100%;
+  max-width: 390px;
+  padding: 28px 22px;
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  text-align: center;
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.32);
+  animation: scannerIn 0.45s ease;
+}
+
+.scan-frame {
+  width: 255px;
+  height: 255px;
+  position: relative;
+  margin: 0 auto 28px;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+}
+
+.scan-frame::before {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.corner {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-color: #ffc107;
+  border-style: solid;
+  filter: drop-shadow(0 0 9px rgba(255, 193, 7, 0.75));
+  animation: cornerPulse 1.8s infinite ease-in-out;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+  border-width: 5px 0 0 5px;
+  border-radius: 16px 0 0 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  border-width: 5px 5px 0 0;
+  border-radius: 0 16px 0 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 5px 5px;
+  border-radius: 0 0 0 16px;
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-width: 0 5px 5px 0;
+  border-radius: 0 0 16px 0;
+}
+
+.qr-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.12);
+
+  ion-icon {
+    font-size: 82px;
   }
 }
 
-/* Diseño del recuadro de la cámara */
-.scan-frame {
-  width: 250px;
-  height: 250px;
-  position: relative;
+.laser {
+  width: 76%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffc107, transparent);
+  position: absolute;
+  left: 12%;
+  top: 50%;
+  border-radius: 20px;
+  box-shadow: 0 0 18px #ffc107;
+  animation: scanAnimation 2.2s infinite alternate ease-in-out;
+}
 
-  .corner {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-color: #FFC107; /* Color amarillo corporativo */
-    border-style: solid;
+.scanner-card h3 {
+  margin: 0 0 10px;
+  color: white;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.scanner-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.tip-card {
+  width: 100%;
+  max-width: 390px;
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: white;
+  backdrop-filter: blur(12px);
+}
+
+.tip-icon {
+  min-width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: rgba(255, 193, 7, 0.18);
+  color: #ffc107;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+.tip-card h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.tip-card p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.68);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.scanner-footer {
+  position: fixed;
+  z-index: 3;
+  bottom: 34px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.manual-btn {
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(135deg, #6c63ff 0%, #4d44e8 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 17px 24px;
+  border-radius: 26px;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 14px 28px rgba(108, 99, 255, 0.32);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  ion-icon {
+    font-size: 23px;
+    color: #ffc107;
   }
 
-  .top-left { top: 0; left: 0; border-width: 4px 0 0 4px; border-radius: 10px 0 0 0; }
-  .top-right { top: 0; right: 0; border-width: 4px 4px 0 0; border-radius: 0 10px 0 0; }
-  .bottom-left { bottom: 0; left: 0; border-width: 0 0 4px 4px; border-radius: 0 0 0 10px; }
-  .bottom-right { bottom: 0; right: 0; border-width: 0 4px 4px 0; border-radius: 0 0 10px 0; }
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 35px rgba(108, 99, 255, 0.42);
+  }
 
-  /* Animación del láser */
-  .laser {
-    width: 100%;
-    height: 2px;
-    background: #FFC107;
-    position: absolute;
-    top: 50%;
-    box-shadow: 0 0 15px #FFC107;
-    animation: scanAnimation 2s infinite alternate ease-in-out;
+  &:active {
+    transform: scale(0.97);
   }
 }
 
 @keyframes scanAnimation {
-  0% { top: 5%; }
-  100% { top: 95%; }
-}
+  0% {
+    top: 13%;
+  }
 
-.scanner-footer {
-  position: absolute;
-  bottom: 40px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  .manual-btn {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 16px 32px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-
-    ion-icon { font-size: 24px; color: #FFC107; }
+  100% {
+    top: 87%;
   }
 }
 
-/* Reutilización del diseño del Modal */
+@keyframes cornerPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes scannerIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .custom-modal {
   --height: auto;
   --width: 85%;
@@ -119,21 +336,41 @@
         align-items: center;
         font-size: 50px;
         margin-bottom: 20px;
-        &.success-color { background: #E7F9ED; color: #2DD36F; }
+
+        &.success-color {
+          background: #e7f9ed;
+          color: #2dd36f;
+        }
       }
 
-      h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
-      p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
+      h2 {
+        margin: 0 0 15px;
+        font-size: 24px;
+        font-weight: 900;
+        color: #1a1a1a;
+      }
+
+      p {
+        margin: 0 0 30px;
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+
+        b {
+          color: #1a1a1a;
+          font-weight: 800;
+        }
+      }
 
       .modal-btn {
         width: 100%;
         height: 55px;
-        background: #6C63FF;
+        background: #6c63ff;
         color: white;
         border: none;
         border-radius: 18px;
         font-size: 16px;
-        font-weight: 700;
+        font-weight: 800;
         box-shadow: 0 8px 15px rgba(108, 99, 255, 0.2);
         cursor: pointer;
       }

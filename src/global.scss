@@ -35,3 +35,64 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+/* ANIMACIONES GENERALES DE LA APP */
+
+ion-content {
+  animation: pageFadeIn 0.45s ease-in-out;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button,
+.menu-item,
+.reward-card,
+.avatar-option,
+.main-btn,
+.logout-btn,
+.upload-photo-btn,
+.close-btn,
+.delete-btn {
+  transition: all 0.25s ease;
+}
+
+button:hover,
+.menu-item:hover,
+.reward-card:hover,
+.avatar-option:hover,
+.main-btn:hover,
+.logout-btn:hover,
+.upload-photo-btn:hover {
+  transform: translateY(-2px);
+}
+
+button:active,
+.menu-item:active,
+.reward-card:active,
+.avatar-option:active,
+.main-btn:active,
+.logout-btn:active,
+.upload-photo-btn:active {
+  transform: scale(0.97);
+}
+
+ion-tab-button {
+  transition: all 0.25s ease;
+}
+
+ion-tab-button:hover {
+  transform: translateY(-3px);
+}
+
+ion-tab-button.tab-selected {
+  transform: scale(1.08);
+}
