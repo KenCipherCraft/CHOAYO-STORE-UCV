@@ -1,88 +1,361 @@
 .recompensas-bg {
-  --background: #F8F9FA;
+  --background: #f4f6fb;
 }
 
-.header-section {
-  padding: 40px 25px 20px;
-  background: white;
-  border-radius: 0 0 35px 35px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  margin-bottom: 20px;
-
-  h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; color: #1A1A1A; }
-  p { margin: 0; font-size: 16px; color: #666; strong { color: #6C63FF; font-weight: 700; } }
+.hero-recompensas {
+  background: linear-gradient(135deg, #6c63ff 0%, #4d44e8 100%);
+  padding: 34px 24px 42px;
+  border-radius: 0 0 38px 38px;
+  color: white;
+  box-shadow: 0 14px 35px rgba(108, 99, 255, 0.25);
 }
 
-.catalog-grid {
-  padding: 0 20px 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.hero-text {
+  text-align: left;
+
+  p {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  span {
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.4;
+  }
 }
 
-.reward-item {
-  background: white;
-  border-radius: 20px;
-  padding: 15px;
+.points-summary {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 26px;
+  padding: 18px;
   display: flex;
   align-items: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-  transition: transform 0.2s ease;
-  cursor: pointer;
+  gap: 16px;
+  backdrop-filter: blur(10px);
 
-  &:active { transform: scale(0.98); }
+  .star-badge {
+    width: 56px;
+    height: 56px;
+    background: #ffc107;
+    color: #1a1a1a;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(255, 193, 7, 0.35);
 
-  .icon-box {
-    width: 75px; /* Tamaño ideal para miniaturas */
-    height: 75px; 
-    min-width: 75px;
-    border-radius: 15px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin-right: 15px;
-    overflow: hidden; /* Corta automáticamente lo que sobresalga del cuadrado */
-    
-    &.cafe { background: #FFF4E5; color: #FF9800; }
-    &.bag { background: #E5F0FF; color: #2196F3; }
-    &.ticket { background: #F3E5FF; color: #9C27B0; }
-    &.cinema { background: #FFE5E5; color: #F44336; }
-    &.merch { background: #E5FFF4; color: #00C853; }
-
-    /* Imagen encapsulada */
-    .recompensa-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Llena el marco sin deformar la foto */
+    ion-icon {
+      font-size: 30px;
     }
   }
 
-  .item-details {
-    flex: 1;
-    h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #1A1A1A; }
-    p { margin: 0; font-size: 14px; font-weight: 600; color: #888; }
+  h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 1;
   }
 
-  .btn-canjear {
-    background: #F0F0FF; color: #6C63FF; border: none; padding: 8px 16px; border-radius: 12px; font-weight: 700; font-size: 13px;
+  p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.9;
   }
 }
 
-/* Estilos para el Modal Personalizado */
+.section-title {
+  padding: 24px 22px 16px;
+
+  p {
+    margin: 0 0 4px;
+    color: #6c63ff;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  h3 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 21px;
+    font-weight: 900;
+  }
+}
+
+.catalog-grid {
+  padding: 0 20px 90px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.reward-card {
+  background: white;
+  border-radius: 26px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  animation: cardIn 0.45s ease both;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reward-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.12);
+}
+
+.reward-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 100%;
+}
+
+.reward-card.cafe::before {
+  background: #c67b36;
+}
+
+.reward-card.bag::before {
+  background: #2196f3;
+}
+
+.reward-card.ticket::before {
+  background: #9c27b0;
+}
+
+.reward-card.cinema::before {
+  background: #f44336;
+}
+
+.reward-card.merch::before {
+  background: #00c853;
+}
+
+.reward-image {
+  width: 92px;
+  min-width: 92px;
+  height: 92px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f4f6fb;
+  align-self: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.reward-content {
+  flex: 1;
+}
+
+.reward-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+
+  h3 {
+    margin: 0 0 7px;
+    font-size: 17px;
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+}
+
+.cost-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #777;
+  font-size: 13px;
+  font-weight: 800;
+
+  ion-icon {
+    color: #ffc107;
+    font-size: 16px;
+  }
+}
+
+.status-pill {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status-pill.available {
+  background: #e7f9ed;
+  color: #10a84f;
+}
+
+.status-pill.locked {
+  background: #fff4e5;
+  color: #ff9800;
+}
+
+.progress-wrapper {
+  margin-top: 14px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 9px;
+  border-radius: 20px;
+  background: #edf0f6;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #6c63ff 0%, #9b8cff 100%);
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #777;
+  font-weight: 700;
+
+  strong {
+    color: #6c63ff;
+    font-weight: 900;
+  }
+}
+
+.btn-canjear {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-canjear.enabled {
+  background: #6c63ff;
+  color: white;
+  box-shadow: 0 8px 18px rgba(108, 99, 255, 0.28);
+}
+
+.btn-canjear.enabled:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(108, 99, 255, 0.35);
+}
+
+.btn-canjear.disabled {
+  background: #eeeeff;
+  color: #8b86c9;
+}
+
+.btn-canjear:active {
+  transform: scale(0.97);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .custom-modal {
-  --height: auto; --width: 85%; --border-radius: 35px; --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  --height: auto;
+  --width: 85%;
+  --border-radius: 35px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+
   .modal-wrapper {
-    padding: 30px 20px; background: white; text-align: center;
+    padding: 30px 20px;
+    background: white;
+    text-align: center;
+
     .modal-body {
-      display: flex; flex-direction: column; align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
       .icon-circle {
-        width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; margin-bottom: 20px;
-        &.success-color { background: #E7F9ED; color: #2DD36F; }
-        &.error-color { background: #FFF4E5; color: #FFC107; }
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        margin-bottom: 20px;
+
+        &.success-color {
+          background: #e7f9ed;
+          color: #2dd36f;
+        }
+
+        &.error-color {
+          background: #fff4e5;
+          color: #ffc107;
+        }
       }
-      h2 { margin: 0 0 15px; font-size: 24px; font-weight: 800; color: #1A1A1A; }
-      p { margin: 0 0 30px; font-size: 16px; color: #666; line-height: 1.5; b { color: #1A1A1A; font-weight: 700; } }
-      .modal-btn { width: 100%; height: 55px; background: #6C63FF; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
+
+      h2 {
+        margin: 0 0 15px;
+        font-size: 24px;
+        font-weight: 900;
+        color: #1a1a1a;
+      }
+
+      p {
+        margin: 0 0 30px;
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      .modal-btn {
+        width: 100%;
+        height: 55px;
+        background: #6c63ff;
+        color: white;
+        border: none;
+        border-radius: 18px;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,53 +1,106 @@
 <ion-content class="home-bg">
-  <div class="header-section">
-    <div class="user-info">
-      <h2>Hola {{ usuario?.nombre?.split(' ')[0] || 'Usuario' }} 👋</h2>
-      <ion-icon name="notifications-outline" class="bell-icon"></ion-icon>
+
+  <div class="hero-section">
+    <div class="top-bar">
+      <div>
+        <p class="small-text">Bienvenido de nuevo</p>
+        <h2>Hola {{ usuario?.nombre?.split(' ')[0] || 'Usuario' }} 👋</h2>
+      </div>
+
+      <div class="notification-circle">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </div>
     </div>
 
     <div class="points-card">
-      <div class="points-header">
+      <div>
         <span>Tus puntos actuales</span>
+
+        <div class="points-body">
+          <ion-icon name="star" class="star-icon"></ion-icon>
+          <h1>{{ usuario?.puntos || 0 }} <small>pts</small></h1>
+        </div>
       </div>
-      <div class="points-body">
-        <ion-icon name="star" class="star-icon"></ion-icon>
-        <h1>{{ usuario?.puntos || 0 }} <span>pts</span></h1>
-      </div>
-      <button class="canjear-btn" (click)="irARecompensas()">Canjear ahora</button>
+
+      <button class="canjear-btn" (click)="irARecompensas()">
+        Canjear ahora
+      </button>
     </div>
   </div>
 
   <div class="section-title">
-    <h3>Recompensas destacadas</h3>
+    <div>
+      <p>Beneficios para ti</p>
+      <h3>Recompensas destacadas</h3>
+    </div>
     <a (click)="irARecompensas()">Ver todas</a>
   </div>
 
   <div class="rewards-scroll">
-    <div class="mini-reward-card" *ngFor="let item of destacadas" (click)="procesarCanje(item.nombre, item.costo)">
+    <div
+      class="mini-reward-card"
+      *ngFor="let item of destacadas"
+      (click)="procesarCanje(item.nombre, item.costo)"
+    >
       <div class="img-container">
         <img [src]="item.imagen" [alt]="item.nombre">
       </div>
+
       <h4>{{ item.nombre }}</h4>
-      <p>{{ item.costo }} pts</p>
+
+      <div class="reward-points">
+        <ion-icon name="star"></ion-icon>
+        <p>{{ item.costo }} pts</p>
+      </div>
     </div>
   </div>
 
+  <div class="promo-card">
+    <div class="promo-icon">
+      <ion-icon name="gift-outline"></ion-icon>
+    </div>
+
+    <div>
+      <h3>Escanea tus compras</h3>
+      <p>Gana puntos cada vez que registres una boleta.</p>
+    </div>
+
+    <button routerLink="/tabs/scan">
+      Escanear
+    </button>
+  </div>
+
   <div class="section-title recent-title">
-    <h3>Tus últimos movimientos</h3>
+    <div>
+      <p>Actividad reciente</p>
+      <h3>Tus últimos movimientos</h3>
+    </div>
     <a routerLink="/tabs/historial">Ver todo</a>
   </div>
 
   <div class="recent-activity-list">
     <div class="empty-state" *ngIf="transaccionesRecientes.length === 0">
-      <p>Aún no tienes movimientos.</p>
+      <ion-icon name="gift-outline"></ion-icon>
+      <h4>Aún no tienes movimientos</h4>
+      <p>Escanea una compra o canjea una recompensa para ver actividad aquí.</p>
     </div>
-    
+
     <div class="activity-item" *ngFor="let tx of transaccionesRecientes">
-      <div class="activity-info">
-        <h4>{{ tx.descripcion }}</h4>
-        <span>{{ tx.fecha || 'Reciente' }}</span>
+      <div class="activity-left">
+        <div class="activity-icon">
+          <ion-icon name="star"></ion-icon>
+        </div>
+
+        <div class="activity-info">
+          <h4>{{ tx.descripcion }}</h4>
+          <span>{{ tx.fecha || 'Reciente' }}</span>
+        </div>
       </div>
-      <div class="activity-points" [ngClass]="{'positive': tx.puntos > 0, 'negative': tx.puntos < 0}">
+
+      <div
+        class="activity-points"
+        [ngClass]="{'positive': tx.puntos > 0, 'negative': tx.puntos < 0}"
+      >
         {{ tx.puntos > 0 ? '+' : '' }}{{ tx.puntos }} pts
       </div>
     </div>
@@ -60,11 +113,16 @@
           <div class="icon-circle" [ngClass]="modalData.color">
             <ion-icon [name]="modalData.icono"></ion-icon>
           </div>
+
           <h2>{{ modalData.titulo }}</h2>
           <p [innerHTML]="modalData.mensaje"></p>
-          <button class="modal-btn" (click)="cerrarModal()">Entendido</button>
+
+          <button class="modal-btn" (click)="cerrarModal()">
+            Entendido
+          </button>
         </div>
       </div>
     </ng-template>
   </ion-modal>
+
 </ion-content>
