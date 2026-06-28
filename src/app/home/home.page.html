@@ -18,7 +18,7 @@
 
         <div class="points-body">
           <ion-icon name="star" class="star-icon"></ion-icon>
-          <h1>{{ usuario?.puntos || 0 }} <small>pts</small></h1>
+          <h1>{{ usuario?.puntos_totales || 0 }} <small>pts</small></h1>
         </div>
       </div>
 
@@ -43,7 +43,7 @@
       (click)="procesarCanje(item.nombre, item.costo)"
     >
       <div class="img-container">
-        <img [src]="item.imagen" [alt]="item.nombre">
+        <img [src]="item.imagen" [alt]="item.nombre" loading="lazy" width="60" height="60">
       </div>
 
       <h4>{{ item.nombre }}</h4>

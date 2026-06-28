@@ -4,7 +4,8 @@
       <ion-icon name="arrow-back-outline"></ion-icon>
     </button>
     <h2>Editar Perfil</h2>
-    <div style="width: 40px;"></div> </div>
+    <div style="width: 40px;"></div> 
+  </div>
 
   <div class="profile-photo-section">
     <div class="photo-container">
@@ -20,7 +21,7 @@
   <div class="form-container">
     <div class="input-group">
       <label>Nombre Completo</label>
-      <input type="text" [value]="usuario.nombre" placeholder="Ingresa tu nombre">
+      <input type="text" [(ngModel)]="usuario.nombre" placeholder="Ingresa tu nombre">
     </div>
 
     <div class="input-group">
@@ -31,12 +32,12 @@
 
     <div class="input-group">
       <label>Teléfono</label>
-      <input type="tel" placeholder="987 654 321">
+      <input type="tel" [(ngModel)]="usuario.telefono" placeholder="987 654 321">
     </div>
   </div>
 
   <div class="action-footer">
-    <button class="save-btn" *ngIf="!guardando && !guardadoExitoso" (click)="simularGuardado()">
+    <button class="save-btn" *ngIf="!guardando && !guardadoExitoso" (click)="guardarCambios()">
       Guardar Cambios
     </button>
     

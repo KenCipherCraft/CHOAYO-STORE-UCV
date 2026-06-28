@@ -8,7 +8,8 @@ import {
   arrowUpCircleOutline,
   giftOutline
 } from 'ionicons/icons';
-import { UsuarioService } from '../../services/usuario.service';
+import { SupabaseService } from '../../services/supabase.service';
+import { supabase } from '../../../environments/supabase.config'; // Asegúrate que la ruta sea correcta
 
 @Component({
   selector: 'app-historial',
@@ -23,7 +24,7 @@ export class HistorialPage implements OnInit {
   totalGanado = 0;
   totalCanjeado = 0;
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(private supabaseService: SupabaseService) {
     addIcons({
       funnelOutline,
       receiptOutline,
@@ -40,15 +41,56 @@ export class HistorialPage implements OnInit {
     this.cargarHistorial();
   }
 
-  cargarHistorial() {
-    this.transacciones = this.usuarioService.obtenerHistorial();
+  async cargarHistorial() {
+    // 1. Obtener usuario logueado
+    const userAuth = await this.supabaseService.getUsuarioActual();
+    if (!userAuth) return;
 
-    this.totalGanado = this.transacciones
-      .filter(item => item.tipo === 'ingreso')
-      .reduce((total, item) => total + Number(item.monto), 0);
+    try {
+      // 2. Traer todos los movimientos de este usuario desde Supabase
+      // OJO: Si tu columna de fecha se llama 'created_at', cambia 'fecha' por 'created_at' aquí abajo
+      const { data, error } = await supabase
+        .from('historico_puntos')
+        .select('*')
+        .eq('usuario_id', userAuth.id)
+        .order('fecha', { ascending: false }); 
 
-    this.totalCanjeado = this.transacciones
-      .filter(item => item.tipo !== 'ingreso')
-      .reduce((total, item) => total + Number(item.monto), 0);
+      if (error) throw error;
+
+      if (data) {
+        // 3. Mapeamos los datos de la BD para que encajen EXACTAMENTE con lo que espera tu HTML
+        this.transacciones = data.map((dbItem: any) => {
+          
+          // Adaptamos los nombres de la base de datos a los que usa tu HTML
+          const tipoAdaptado = dbItem.tipo === 'ganado' ? 'ingreso' : 'gasto';
+          
+          // Los canjes están en negativo en la BD, usamos Math.abs para pasarlos a positivo
+          // porque tu HTML ya se encarga de ponerles el signo '-'
+          const montoAbsoluto = Math.abs(dbItem.puntos);
+
+          // Formateamos la fecha a formato local (Día/Mes/Año)
+          // Si tu columna es 'created_at', cambia dbItem.fecha por dbItem.created_at
+          const fechaStr = dbItem.fecha ? new Date(dbItem.fecha).toLocaleDateString() : 'Fecha no disp.';
+
+          return {
+            tipo: tipoAdaptado,
+            monto: montoAbsoluto,
+            descripcion: dbItem.descripcion,
+            fecha: fechaStr
+          };
+        });
+
+        // 4. Calcular los totales para las tarjetas de arriba (código original tuyo)
+        this.totalGanado = this.transacciones
+          .filter(item => item.tipo === 'ingreso')
+          .reduce((total, item) => total + Number(item.monto), 0);
+
+        this.totalCanjeado = this.transacciones
+          .filter(item => item.tipo !== 'ingreso')
+          .reduce((total, item) => total + Number(item.monto), 0);
+      }
+    } catch (error) {
+      console.error('Error al cargar el historial desde Supabase:', error);
+    }
   }
 }

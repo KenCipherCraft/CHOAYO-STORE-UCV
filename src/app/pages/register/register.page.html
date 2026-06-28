@@ -25,6 +25,11 @@
         </div>
 
         <div class="input-group">
+          <ion-icon name="call-outline" class="input-icon"></ion-icon>
+          <input type="tel" formControlName="telefono" placeholder="Número de teléfono">
+        </div>
+
+        <div class="input-group">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <input [type]="passwordType" formControlName="password" placeholder="Contraseña">
         </div>
@@ -34,9 +39,12 @@
           <input [type]="confirmPasswordType" formControlName="confirmPassword" placeholder="Confirmar contraseña">
         </div>
 
-        <div class="options">
-          <ion-checkbox labelPlacement="end" justify="start">Acepto los términos y condiciones</ion-checkbox>
-        </div>
+          <div class="options">
+            <label class="checkbox-label">
+              <input type="checkbox" class="native-checkbox">
+              <span>Acepto los términos y condiciones</span>
+            </label>
+          </div>
 
         <button type="submit" class="main-btn" [disabled]="registerForm.invalid">
           Registrarme
@@ -50,3 +58,12 @@
 
   </div>
 </ion-content>
+<!-- Mensaje de error -->
+<p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+<!-- Mensaje de éxito -->
+<p class="success-msg" *ngIf="successMsg">{{ successMsg }}</p>
+
+<button type="submit" class="main-btn" [disabled]="registerForm.invalid || cargando">
+  {{ cargando ? 'Creando cuenta...' : 'Registrarme' }}
+</button>

@@ -10,7 +10,9 @@ import {
   qrCodeOutline,
   bulbOutline
 } from 'ionicons/icons';
-import { UsuarioService } from '../../services/usuario.service';
+
+// 1. Quitamos UsuarioService y traemos el real:
+import { SupabaseService } from '../../services/supabase.service';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -33,7 +35,7 @@ export class ScanPage {
   puntosGanados = 0;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private supabaseService: SupabaseService, // 2. Inyectamos Supabase
     private router: Router
   ) {
     addIcons({
@@ -46,10 +48,42 @@ export class ScanPage {
     });
   }
 
-  simularEscaneo() {
+  // 3. Volvemos la función asíncrona para que espere a la base de datos
+  async simularEscaneo() {
+    // Genera entre 100 y 500 puntos aleatorios
     this.puntosGanados = Math.floor(Math.random() * (500 - 100 + 1) + 100);
-    this.usuarioService.sumarPuntos(this.puntosGanados);
-    this.isModalOpen = true;
+
+    try {
+      // A. Obtener el usuario actual
+      const userAuth = await this.supabaseService.getUsuarioActual();
+      if (!userAuth) return;
+
+      // B. Obtener los puntos que tiene actualmente en la BD
+      const perfil = await this.supabaseService.getPerfilUsuario(userAuth.id);
+      if (!perfil) return;
+
+      // C. Calculamos el nuevo total
+      const nuevosPuntos = perfil.puntos_totales + this.puntosGanados;
+
+      // D. Guardamos el nuevo total en la tabla 'usuarios'
+      await this.supabaseService.actualizar('usuarios', userAuth.id, {
+        puntos_totales: nuevosPuntos
+      });
+
+      // E. Guardamos el movimiento en 'historico_puntos'
+      await this.supabaseService.insertar('historico_puntos', {
+        usuario_id: userAuth.id,
+        tipo: 'ganado', // Para que el Historial lo pinte de verde
+        puntos: this.puntosGanados,
+        descripcion: 'Escaneo de código QR en tienda'
+      });
+
+      // F. Abrimos el modal de éxito de tu HTML
+      this.isModalOpen = true;
+
+    } catch (error) {
+      console.error('Error al guardar los puntos en Supabase:', error);
+    }
   }
 
   cerrarYVolver() {

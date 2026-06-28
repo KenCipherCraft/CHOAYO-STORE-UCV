@@ -4,7 +4,8 @@ import { IonContent, IonIcon, IonButton, IonModal } from '@ionic/angular/standal
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { notificationsOutline, star, cafeOutline, bagOutline, ticketOutline, giftOutline, checkmarkCircleOutline, alertCircleOutline } from 'ionicons/icons';
-import { UsuarioService } from '../services/usuario.service';
+import { SupabaseService } from '../services/supabase.service';
+import { supabase } from '../../environments/supabase.config';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,11 @@ import { UsuarioService } from '../services/usuario.service';
   imports: [IonContent, IonIcon, IonButton, IonModal, CommonModule, RouterModule],
 })
 export class HomePage implements OnInit {
-  
-  usuario: any;
+
+  usuario: any = { nombre: '', puntos_totales: 0 };
   isModalOpen = false;
   modalData = { titulo: '', mensaje: '', icono: '', color: '' };
-  
-  // Variables para el Dashboard
+
   transaccionesRecientes: any[] = [];
   destacadas = [
     { nombre: 'Café gratis', costo: 500, imagen: 'assets/recompensas/cafe.png' },
@@ -27,7 +27,10 @@ export class HomePage implements OnInit {
     { nombre: 'Cupón S/15', costo: 1000, imagen: 'assets/recompensas/cupon.png' }
   ];
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {
+  constructor(
+    private supabaseService: SupabaseService,
+    private router: Router
+  ) {
     addIcons({ notificationsOutline, star, cafeOutline, bagOutline, ticketOutline, giftOutline, checkmarkCircleOutline, alertCircleOutline });
   }
 
@@ -39,32 +42,48 @@ export class HomePage implements OnInit {
     this.cargarDatos();
   }
 
-  cargarDatos() {
-    this.usuario = this.usuarioService.obtenerDatos();
-    const historialCompleto = this.usuarioService.obtenerHistorial();
-    this.transaccionesRecientes = historialCompleto.slice(0, 3);
+  async cargarDatos() {
+    // Obtener usuario logueado
+    const userAuth = await this.supabaseService.getUsuarioActual();
+
+    if (!userAuth) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Obtener perfil completo desde tabla usuarios
+    const perfil = await this.supabaseService.getPerfilUsuario(userAuth.id);
+    if (perfil) {
+      this.usuario = perfil;
+    }
+
+    // Obtener últimos 3 movimientos del historial
+    const { data, error } = await supabase
+      .from('historico_puntos')
+      .select('*')
+      .eq('usuario_id', userAuth.id)
+      .order('fecha', { ascending: false })
+      .limit(3);
+
+    if (!error && data) {
+      this.transaccionesRecientes = data;
+    }
   }
 
-  procesarCanje(nombreItem: string, costo: number) {
-    const exito = this.usuarioService.canjearRecompensa(costo, nombreItem);
-    
-    if (exito) {
-      this.modalData = {
-        titulo: '¡Canje Exitoso!',
-        mensaje: `Has obtenido tu <b>${nombreItem}</b>. ¡Disfrútalo!`,
-        icono: 'checkmark-circle-outline',
-        color: 'success-color'
-      };
+procesarCanje(nombreItem: string, costo: number) {
+    if (this.usuario.puntos_totales >= costo) {
+      // Navegamos directamente a la ruta limpia de recompensas
+      this.router.navigate(['/recompensas']);
     } else {
+      // Se mantiene tu diseño de modal de error si no le alcanzan los puntos
       this.modalData = {
         titulo: 'Puntos insuficientes',
         mensaje: `Necesitas <b>${costo} pts</b> para este beneficio. ¡Sigue sumando!`,
         icono: 'alert-circle-outline',
         color: 'error-color'
       };
+      this.isModalOpen = true;
     }
-    this.isModalOpen = true;
-    this.cargarDatos(); // Actualizamos la vista al instante
   }
 
   cerrarModal() {

@@ -1,11 +1,10 @@
 <ion-content class="custom-bg">
   <div class="login-container">
-    
+
     <div class="logo-section">
       <div class="logo-box">
-  <img src="assets/icon/LogoPag.png" alt="Logo CHOAYOAPP">
-</div>
-
+        <img src="assets/icon/LogoPag.png" alt="Logo CHOAYOAPP">
+      </div>
       <h1>CHOAYOAPP</h1>
       <p>Premiamos tu fidelidad</p>
     </div>
@@ -16,27 +15,32 @@
     </div>
 
     <div class="form-container">
-      
+
       <div class="input-group">
         <ion-icon name="mail-outline"></ion-icon>
-        <input type="email" placeholder="Correo electrónico">
+        <input type="email" placeholder="Correo electrónico" [(ngModel)]="email">
       </div>
 
       <div class="input-group">
         <ion-icon name="lock-closed-outline"></ion-icon>
-        <input [type]="passwordType" placeholder="Contraseña">
+        <input [type]="passwordType" placeholder="Contraseña" [(ngModel)]="password">
         <ion-icon [name]="passwordIcon" class="eye-icon" (click)="togglePasswordMode()"></ion-icon>
       </div>
+
+      <!-- Mensaje de error -->
+      <p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
 
       <div class="options">
         <div class="remember">
           <ion-checkbox mode="md"></ion-checkbox>
           <label>Recordarme</label>
         </div>
-        <a href="#" class="forgot-pwd">¿Olvidaste tu contraseña?</a>
+        <a href="javascript:void(0)" class="forgot-pwd">¿Olvidaste tu contraseña?</a>
       </div>
 
-      <button class="main-btn" (click)="ingresar()">Iniciar sesión</button>
+      <button class="main-btn" (click)="ingresar()" [disabled]="cargando">
+        {{ cargando ? 'Iniciando...' : 'Iniciar sesión' }}
+      </button>
 
       <div class="footer">
         <p>¿No tienes cuenta? <a routerLink="/register">Crear cuenta</a></p>

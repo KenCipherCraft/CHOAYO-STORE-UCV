@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: 'tabs',
     loadComponent: () => import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
+    canActivate: [authGuard],
     children: [
       {
         path: 'home',
@@ -30,7 +32,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/historial/historial.page').then((m) => m.HistorialPage),
       },
       {
-        // Ruta conectada al nuevo perfil
         path: 'perfil',
         loadComponent: () => import('./pages/perfil/perfil.page').then((m) => m.PerfilPage),
       },
@@ -45,9 +46,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
-  },  {
-    path: 'editar-perfil',
-    loadComponent: () => import('./pages/editar-perfil/editar-perfil.page').then( m => m.EditarPerfilPage)
   },
-
+  {
+    path: 'editar-perfil',
+    loadComponent: () => import('./pages/editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage),
+  },
 ];

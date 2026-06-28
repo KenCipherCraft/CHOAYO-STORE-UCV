@@ -22,7 +22,6 @@ export class SupabaseService {
       .from('recompensas')
       .select('*')
       .eq('activa', true);
-
     if (error) {
       console.error('Error al obtener recompensas:', error);
       return [];
@@ -62,5 +61,90 @@ export class SupabaseService {
       return null;
     }
     return data;
+  }
+
+  // ─── AUTENTICACIÓN ───────────────────────────────────────
+
+  // Registrar nuevo usuario
+  async registrar(email: string, password: string, nombre: string, telefono: string = '') {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { nombre }
+      }
+    });
+
+    if (error) {
+      console.error('Error al registrar:', error);
+      return null;
+    }
+
+    if (data.user) {
+      await this.insertar('usuarios', {
+        identificacion: data.user.id,
+        nombre: nombre,
+        correo_electronico: email,
+        telefono: telefono,
+        puntos_totales: 250
+      });
+
+      await this.insertar('historico_puntos', {
+        usuario_id: data.user.id,
+        tipo: 'ganado',
+        puntos: 250,
+        descripcion: 'Bono de bienvenida'
+      });
+    }
+
+    return data;
+  }
+
+  // Iniciar sesión
+  async login(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      console.error('Error al iniciar sesión:', error);
+      return null;
+    }
+
+    return data;
+  }
+
+  // Cerrar sesión
+  async logout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) console.error('Error al cerrar sesión:', error);
+  }
+
+  // Obtener usuario logueado actualmente
+  async getUsuarioActual() {
+    const { data } = await supabase.auth.getUser();
+    return data?.user || null;
+  }
+
+  // Obtener perfil completo desde la tabla usuarios
+  async getPerfilUsuario(userId: string) {
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select('*')
+      .eq('identificacion', userId)
+      .single();
+
+    if (error) {
+      console.error('Error al obtener perfil:', error);
+      return null;
+    }
+    return data;
+  }
+
+  // Sesión activa (para persistencia)
+  async getSession() {
+    const { data } = await supabase.auth.getSession();
+    return data?.session || null;
   }
 }
