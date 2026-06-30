@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms'; // <-- NUEVO
+import { IonContent, IonIcon, IonButton, IonToggle } from '@ionic/angular/standalone'; // <-- NUEVO
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
@@ -25,7 +26,9 @@ import { SupabaseService } from '../../services/supabase.service';
     IonContent,
     IonIcon,
     IonButton,
+    IonToggle,   
     CommonModule,
+    FormsModule, 
     RouterModule
   ]
 })
@@ -74,6 +77,12 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.cargarPerfil();
     this.avatarSeleccionado = localStorage.getItem('avatarSeleccionado');
+    
+    // Cargar preferencias de notificaciones si existen
+    const prefsGuardadas = localStorage.getItem('alertasChoayo');
+    if (prefsGuardadas) {
+      this.alertas = JSON.parse(prefsGuardadas);
+    }
   }
 
   ionViewWillEnter() {
@@ -146,4 +155,56 @@ export class PerfilPage implements OnInit {
       console.error('Error al cerrar sesión:', error);
     }
   }
+
+  // --- VARIABLES PARA CONTRASEÑA ---
+  mostrarModalPassword = false;
+  nuevaPassword = '';
+  confirmarPassword = '';
+  mensajePassword = '';
+
+  // --- VARIABLES PARA NOTIFICACIONES ---
+  mostrarNotificaciones = false;
+  alertas = {
+    productos: true,
+    promociones: true,
+    premios: true
+  };
+
+  // --- LÓGICA DE CONTRASEÑA ---
+  async cambiarContrasena() {
+    if (this.nuevaPassword.length < 6) {
+      this.mensajePassword = 'La contraseña debe tener al menos 6 caracteres.';
+      return;
+    }
+    if (this.nuevaPassword !== this.confirmarPassword) {
+      this.mensajePassword = 'Las contraseñas no coinciden.';
+      return;
+    }
+
+    this.mensajePassword = 'Actualizando...';
+    const result = await this.supabaseService.actualizarPassword(this.nuevaPassword);
+
+    if (result.error) {
+      this.mensajePassword = 'Error al actualizar. Intenta de nuevo.';
+    } else {
+      this.mensajePassword = '¡Contraseña actualizada con éxito!';
+      setTimeout(() => {
+        this.cerrarModalPassword();
+      }, 2000);
+    }
+  }
+
+  cerrarModalPassword() {
+    this.mostrarModalPassword = false;
+    this.nuevaPassword = '';
+    this.confirmarPassword = '';
+    this.mensajePassword = '';
+  }
+
+  // --- LÓGICA DE NOTIFICACIONES ---
+  guardarPreferenciasNotificaciones() {
+    // Guarda en la memoria del teléfono los switches actuales
+    localStorage.setItem('alertasChoayo', JSON.stringify(this.alertas));
+  }
+
 }

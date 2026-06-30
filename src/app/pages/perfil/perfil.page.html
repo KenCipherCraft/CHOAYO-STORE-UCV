@@ -85,6 +85,36 @@
 
   </div>
 
+  <div class="avatar-modal" *ngIf="mostrarModalPassword">
+    <div class="avatar-box">
+      <h3>Seguridad</h3>
+      <p class="modal-subtitle">Ingresa tu nueva clave de acceso.</p>
+
+      <input 
+        type="password" 
+        placeholder="Nueva Contraseña" 
+        [(ngModel)]="nuevaPassword" 
+        style="width: 100%; padding: 14px; margin-top: 15px; border-radius: 8px; border: 1px solid #444; background: #2a2a35; color: #ffffff; outline: none; pointer-events: auto; font-size: 16px;"
+      />
+      
+      <input 
+        type="password" 
+        placeholder="Confirmar Contraseña" 
+        [(ngModel)]="confirmarPassword" 
+        style="width: 100%; padding: 14px; margin-top: 12px; border-radius: 8px; border: 1px solid #444; background: #2a2a35; color: #ffffff; outline: none; pointer-events: auto; font-size: 16px;"
+      />
+
+      <p *ngIf="mensajePassword" style="color: #ff6b6b; font-size: 13px; margin-top: 12px; text-align: center;">
+        {{ mensajePassword }}
+      </p>
+
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button class="change-photo-btn" (click)="cambiarContrasena()">Guardar</button>
+        <button class="close-btn" (click)="cerrarModalPassword()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="profile-content">
 
     <div class="points-card">
@@ -152,40 +182,48 @@
 
       </a>
 
-      <div class="menu-item">
-
+      <div class="menu-item" (click)="mostrarModalPassword = true" style="cursor: pointer;">
         <div class="item-icon purple">
           <ion-icon name="shield-checkmark-outline"></ion-icon>
         </div>
-
         <div class="item-text">
           <h4>Seguridad y Contraseña</h4>
           <p>Administra el acceso a tu cuenta</p>
         </div>
-
-        <ion-icon
-          name="chevron-forward-outline"
-          class="arrow-icon"
-        ></ion-icon>
-
+        <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
       </div>
 
-      <div class="menu-item">
-
+      <div class="menu-item" (click)="mostrarNotificaciones = !mostrarNotificaciones" style="cursor: pointer;">
         <div class="item-icon orange">
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
-
         <div class="item-text">
           <h4>Notificaciones</h4>
           <p>Configura alertas y novedades</p>
         </div>
-
-        <ion-icon
-          name="chevron-forward-outline"
+        <ion-icon 
+          [name]="mostrarNotificaciones ? 'chevron-down-outline' : 'chevron-forward-outline'" 
           class="arrow-icon"
         ></ion-icon>
+      </div>
 
+      <div *ngIf="mostrarNotificaciones" style="background: #ffffff; margin: 0 20px 15px 20px; padding: 16px; border-radius: 0 0 16px 16px; border: 1px solid #e0e0e0; border-top: none;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span style="color: #333333; font-size: 15px; font-weight: 500;">Nuevos Productos</span>
+          <ion-toggle [(ngModel)]="alertas.productos" (ionChange)="guardarPreferenciasNotificaciones()"></ion-toggle>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span style="color: #333333; font-size: 15px; font-weight: 500;">Nuevas Promociones</span>
+          <ion-toggle [(ngModel)]="alertas.promociones" (ionChange)="guardarPreferenciasNotificaciones()"></ion-toggle>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #333333; font-size: 15px; font-weight: 500;">Nuevos Premios</span>
+          <ion-toggle [(ngModel)]="alertas.premios" (ionChange)="guardarPreferenciasNotificaciones()"></ion-toggle>
+        </div>
+        
       </div>
 
     </div>

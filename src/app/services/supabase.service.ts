@@ -100,6 +100,19 @@ export class SupabaseService {
     return data;
   }
 
+  // Actualizar contraseña del usuario activo
+  async actualizarPassword(nuevaPassword: string) {
+    const { data, error } = await supabase.auth.updateUser({
+      password: nuevaPassword
+    });
+
+    if (error) {
+      console.error('Error al actualizar contraseña:', error);
+      return { error };
+    }
+    return { data };
+  }
+
   // Iniciar sesión
   async login(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
