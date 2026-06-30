@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
+
 import {
   personOutline,
   shieldCheckmarkOutline,
@@ -10,7 +11,8 @@ import {
   logOutOutline,
   chevronForwardOutline,
   star,
-  logoWhatsapp
+  logoWhatsapp,
+  trophyOutline
 } from 'ionicons/icons';
 
 import { UsuarioService } from '../../services/usuario.service';
@@ -36,6 +38,17 @@ export class PerfilPage implements OnInit {
     puntos: 0,
     nivel: ''
   };
+
+  infoNivel: any = {
+    nivelActual: '',
+    siguienteNivel: '',
+    puntosActuales: 0,
+    meta: 0,
+    faltan: 0,
+    progreso: 0
+  };
+
+  logros: any[] = [];
 
   mostrarAvatares = false;
 
@@ -68,27 +81,30 @@ export class PerfilPage implements OnInit {
       logOutOutline,
       chevronForwardOutline,
       star,
-      logoWhatsapp
+      logoWhatsapp,
+      trophyOutline
     });
 
   }
 
   ngOnInit() {
-    this.usuario = this.usuarioService.obtenerDatos();
-
-    this.avatarSeleccionado =
-      localStorage.getItem('avatarSeleccionado');
+    this.cargarDatosPerfil();
   }
 
   ionViewWillEnter() {
+    this.cargarDatosPerfil();
+  }
+
+  cargarDatosPerfil() {
     this.usuario = this.usuarioService.obtenerDatos();
+    this.infoNivel = this.usuarioService.obtenerInfoNivel();
+    this.logros = this.usuarioService.obtenerLogros();
 
     this.avatarSeleccionado =
       localStorage.getItem('avatarSeleccionado');
   }
 
   seleccionarAvatar(avatar: string) {
-
     this.avatarSeleccionado = avatar;
 
     localStorage.setItem(
@@ -97,11 +113,9 @@ export class PerfilPage implements OnInit {
     );
 
     this.mostrarAvatares = false;
-
   }
 
   subirFotoUsuario(event: Event) {
-
     const input = event.target as HTMLInputElement;
 
     if (!input.files || input.files.length === 0) {
@@ -109,11 +123,9 @@ export class PerfilPage implements OnInit {
     }
 
     const archivo = input.files[0];
-
     const lector = new FileReader();
 
     lector.onload = () => {
-
       this.avatarSeleccionado =
         lector.result as string;
 
@@ -123,36 +135,28 @@ export class PerfilPage implements OnInit {
       );
 
       this.mostrarAvatares = false;
-
     };
 
     lector.readAsDataURL(archivo);
-
   }
 
   eliminarFotoPerfil() {
-
     localStorage.removeItem(
       'avatarSeleccionado'
     );
 
     this.avatarSeleccionado = null;
-
   }
 
   abrirWhatsApp() {
-
     window.open(
       'https://wa.me/51900475375?text=Hola%20CHOAYO%20STORE,%20quiero%20hacer%20una%20consulta',
       '_blank'
     );
-
   }
 
   cerrarSesion() {
-
     this.router.navigate(['/login']);
-
   }
 
 }

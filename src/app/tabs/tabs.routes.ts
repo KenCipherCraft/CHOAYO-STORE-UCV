@@ -22,10 +22,10 @@ export const routes: Routes = [
           import('../pages/scan/scan.page').then((m) => m.ScanPage),
       },
       {
-        path: 'historial',
-        loadComponent: () =>
-          import('../pages/historial/historial.page').then((m) => m.HistorialPage),
-      },
+  path: 'juego',
+  loadComponent: () =>
+    import('../pages/juego/juego.page').then((m) => m.JuegoPage),
+},
       {
         path: 'perfil',
         loadComponent: () =>

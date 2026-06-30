@@ -1,6 +1,7 @@
 <ion-content class="home-bg">
 
   <div class="hero-section">
+
     <div class="top-bar">
       <div>
         <p class="small-text">Bienvenido de nuevo</p>
@@ -26,6 +27,61 @@
         Canjear ahora
       </button>
     </div>
+
+  </div>
+
+  <div class="daily-challenge-card" *ngIf="retoDiario">
+
+    <div class="challenge-header">
+
+      <div class="challenge-icon">
+        <ion-icon name="flame-outline"></ion-icon>
+      </div>
+
+      <div>
+        <p>Reto activo</p>
+        <h3>{{ retoDiario.titulo }}</h3>
+      </div>
+
+      <span
+        class="challenge-status"
+        [ngClass]="retoDiario.completado ? 'completed' : 'pending'"
+      >
+        {{ retoDiario.completado ? 'Completado' : 'En progreso' }}
+      </span>
+
+    </div>
+
+    <p class="challenge-description">
+      {{ retoDiario.descripcion }}
+    </p>
+
+    <div class="challenge-progress-info">
+      <span>
+        {{ retoDiario.progreso }} / {{ retoDiario.meta }} compras
+      </span>
+
+      <strong>
+        +{{ retoDiario.recompensa }} pts
+      </strong>
+    </div>
+
+    <div class="challenge-progress-bar">
+      <div
+        class="challenge-progress-fill"
+        [style.width.%]="calcularProgresoReto()"
+      ></div>
+    </div>
+
+    <button
+      class="challenge-btn"
+      [disabled]="retoDiario.completado"
+      (click)="irAEscanear()"
+    >
+      <ion-icon name="scan-outline"></ion-icon>
+      {{ retoDiario.completado ? 'Reto completado' : 'Escanear compra' }}
+    </button>
+
   </div>
 
   <div class="section-title">
@@ -33,10 +89,12 @@
       <p>Beneficios para ti</p>
       <h3>Recompensas destacadas</h3>
     </div>
+
     <a (click)="irARecompensas()">Ver todas</a>
   </div>
 
   <div class="rewards-scroll">
+
     <div
       class="mini-reward-card"
       *ngFor="let item of destacadas"
@@ -53,9 +111,11 @@
         <p>{{ item.costo }} pts</p>
       </div>
     </div>
+
   </div>
 
   <div class="promo-card">
+
     <div class="promo-icon">
       <ion-icon name="gift-outline"></ion-icon>
     </div>
@@ -65,20 +125,25 @@
       <p>Gana puntos cada vez que registres una boleta.</p>
     </div>
 
-    <button routerLink="/tabs/scan">
+    <button (click)="irAEscanear()">
       Escanear
     </button>
+
   </div>
 
   <div class="section-title recent-title">
+
     <div>
       <p>Actividad reciente</p>
       <h3>Tus últimos movimientos</h3>
     </div>
+
     <a routerLink="/tabs/historial">Ver todo</a>
+
   </div>
 
   <div class="recent-activity-list">
+
     <div class="empty-state" *ngIf="transaccionesRecientes.length === 0">
       <ion-icon name="gift-outline"></ion-icon>
       <h4>Aún no tienes movimientos</h4>
@@ -86,7 +151,9 @@
     </div>
 
     <div class="activity-item" *ngFor="let tx of transaccionesRecientes">
+
       <div class="activity-left">
+
         <div class="activity-icon">
           <ion-icon name="star"></ion-icon>
         </div>
@@ -95,34 +162,46 @@
           <h4>{{ tx.descripcion }}</h4>
           <span>{{ tx.fecha || 'Reciente' }}</span>
         </div>
+
       </div>
 
       <div
         class="activity-points"
-        [ngClass]="{'positive': tx.puntos > 0, 'negative': tx.puntos < 0}"
+        [ngClass]="{'positive': tx.monto > 0, 'negative': tx.tipo === 'gasto'}"
       >
-        {{ tx.puntos > 0 ? '+' : '' }}{{ tx.puntos }} pts
+        {{ tx.tipo === 'ingreso' ? '+' : '-' }}{{ tx.monto }} pts
       </div>
+
     </div>
+
   </div>
 
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()" class="custom-modal">
+
     <ng-template>
+
       <div class="modal-wrapper">
+
         <div class="modal-body">
+
           <div class="icon-circle" [ngClass]="modalData.color">
             <ion-icon [name]="modalData.icono"></ion-icon>
           </div>
 
           <h2>{{ modalData.titulo }}</h2>
+
           <p [innerHTML]="modalData.mensaje"></p>
 
           <button class="modal-btn" (click)="cerrarModal()">
             Entendido
           </button>
+
         </div>
+
       </div>
+
     </ng-template>
+
   </ion-modal>
 
 </ion-content>

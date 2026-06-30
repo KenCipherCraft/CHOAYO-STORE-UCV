@@ -1,0 +1,214 @@
+<ion-content class="nivel-bg">
+
+  <!-- CABECERA -->
+
+  <div class="hero">
+
+    <button class="back-btn" (click)="volverMapa()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+
+    <h4>CHOAYO ADVENTURE</h4>
+
+    <h1>Nivel 1 - Bosque Encantado</h1>
+
+    <p>
+      Recoge las estrellas, evita los cactus y llega a la bandera.
+    </p>
+
+  </div>
+
+  <!-- TARJETA -->
+
+  <div class="game-card">
+
+    <div class="top-info">
+
+      <div>
+
+        <span>Puntos</span>
+
+        <h2>{{ puntos }}</h2>
+
+      </div>
+
+      <div>
+
+        <span>Premio</span>
+
+        <h2>+{{50+puntos}}</h2>
+
+      </div>
+
+      <div>
+
+        <span>Vidas</span>
+
+        <div class="lives">
+
+          <ion-icon
+            *ngFor="let i of [1,2,3]"
+            name="heart"
+            [class.off]="i>vidas"
+          ></ion-icon>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ESCENARIO -->
+
+    <div class="world">
+
+      <!-- Cielo -->
+
+      <div class="sun">☀️</div>
+
+      <div class="cloud c1">☁️</div>
+      <div class="cloud c2">☁️</div>
+
+      <!-- Árboles -->
+
+      <div class="tree t1">🌳</div>
+      <div class="tree t2">🌲</div>
+      <div class="tree t3">🌳</div>
+
+      <!-- Estrellas -->
+
+      <div
+
+        class="star"
+
+        *ngFor="let estrella of estrellas"
+
+        [class.hide]="estrella.tomada"
+
+        [style.left.%]="estrella.x"
+
+      >
+
+        ⭐
+
+      </div>
+
+      <!-- Obstáculos -->
+
+      <div
+
+        class="cactus"
+
+        *ngFor="let obstaculo of obstaculos"
+
+        [style.left.%]="obstaculo.x"
+
+      >
+
+        🌵
+
+      </div>
+
+      <!-- Meta -->
+
+      <div
+
+        class="flag"
+
+        [style.left.%]="metaX"
+
+      >
+
+        🚩
+
+      </div>
+
+      <!-- Personaje -->
+
+      <div
+
+        class="player"
+
+        [style.left.%]="jugadorX"
+
+        [style.bottom.px]="45+jugadorY"
+
+      >
+
+        🏃
+
+      </div>
+
+      <!-- Piso -->
+
+      <div class="ground"></div>
+
+    </div>
+
+    <!-- MENSAJE -->
+
+    <div class="message">
+
+      {{mensaje}}
+
+    </div>
+
+    <!-- CONTROLES -->
+
+    <div class="controls">
+
+      <button (click)="saltar()">
+
+        <ion-icon name="arrow-up-outline"></ion-icon>
+
+        Saltar
+
+      </button>
+
+      <button (click)="avanzar()">
+
+        Avanzar
+
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+
+      </button>
+
+    </div>
+
+    <!-- RESULTADO -->
+
+    <button
+
+      class="finish success"
+
+      *ngIf="terminado && gano"
+
+      (click)="volverMapa()"
+
+    >
+
+      <ion-icon name="trophy-outline"></ion-icon>
+
+      Volver al mapa
+
+    </button>
+
+    <button
+
+      class="finish danger"
+
+      *ngIf="terminado && !gano"
+
+      (click)="reiniciar()"
+
+    >
+
+      <ion-icon name="refresh-outline"></ion-icon>
+
+      Reintentar
+
+    </button>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,143 @@
+<ion-content class="juego-bg">
+
+  <!-- CABECERA -->
+
+  <div class="hero">
+
+    <div class="hero-circle"></div>
+
+    <h4>CHOAYO ADVENTURE</h4>
+
+    <h1>Mapa del Mundo</h1>
+
+    <p>
+      Completa niveles, gana estrellas y consigue puntos para canjear premios.
+    </p>
+
+  </div>
+
+  <!-- TARJETA -->
+
+  <div class="map-card">
+
+    <div class="map-header">
+
+      <div class="map-icon">
+        <ion-icon name="map-outline"></ion-icon>
+      </div>
+
+      <div>
+
+        <span>MUNDO 1</span>
+
+        <h2>Bosque Encantado</h2>
+
+      </div>
+
+    </div>
+
+    <!-- MAPA -->
+
+    <div class="level-map">
+
+      <!-- Camino -->
+
+      <div class="road"></div>
+
+      <!-- Decoración -->
+
+      <div class="tree t1">🌳</div>
+      <div class="tree t2">🌲</div>
+      <div class="tree t3">🌳</div>
+      <div class="tree t4">🌲</div>
+
+      <div class="flower f1">🌼</div>
+      <div class="flower f2">🌸</div>
+      <div class="flower f3">🌼</div>
+
+      <div class="rock r1">🪨</div>
+      <div class="rock r2">🪨</div>
+
+      <!-- NIVELES -->
+
+      <button
+
+        *ngFor="let nivel of niveles"
+
+        class="level-button"
+
+        [class.locked]="!nivel.desbloqueado"
+
+        [style.left.%]="nivel.x"
+
+        [style.top.%]="nivel.y"
+
+        (click)="abrirNivel(nivel)"
+
+      >
+
+        <span *ngIf="nivel.desbloqueado">
+
+          {{ nivel.numero }}
+
+        </span>
+
+        <ion-icon
+
+          *ngIf="!nivel.desbloqueado"
+
+          name="lock-closed-outline"
+
+        ></ion-icon>
+
+        <div
+          class="stars"
+          *ngIf="nivel.desbloqueado"
+        >
+
+          <small
+            *ngFor="let s of [1,2,3]"
+            [class.active]="nivel.estrellas>=s"
+          >
+            ★
+          </small>
+
+        </div>
+
+      </button>
+
+      <!-- PERSONAJE -->
+
+      <div class="player">
+
+        🏃
+
+      </div>
+
+    </div>
+
+    <!-- INFORMACIÓN -->
+
+    <div class="bottom-card">
+
+      <div>
+
+        <h3>Nivel desbloqueado</h3>
+
+        <p>{{ nivelMaximoDesbloqueado }}</p>
+
+      </div>
+
+      <button class="play-button">
+
+        <ion-icon name="play-outline"></ion-icon>
+
+        JUGAR
+
+      </button>
+
+    </div>
+
+  </div>
+
+</ion-content>

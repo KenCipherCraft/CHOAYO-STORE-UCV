@@ -2,8 +2,12 @@
   --background: #f4f6fb;
 }
 
+/* ==========================
+   HERO PRINCIPAL
+========================== */
+
 .hero-section {
-  padding: 24px 20px 35px;
+  padding: 24px 20px 48px;
   background: linear-gradient(135deg, #6c63ff 0%, #5249e5 100%);
   border-radius: 0 0 38px 38px;
   color: white;
@@ -111,6 +115,157 @@
   }
 }
 
+/* ==========================
+   RETO DIARIO
+========================== */
+
+.daily-challenge-card {
+  margin: -26px 20px 8px;
+  background: white;
+  border-radius: 28px;
+  padding: 20px;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+  animation: cardUp .45s ease both;
+}
+
+.challenge-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 14px;
+}
+
+.challenge-icon {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 18px;
+  background: #fff4df;
+  color: #ff9800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 28px;
+  }
+}
+
+.challenge-header p {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #6c63ff;
+}
+
+.challenge-header h3 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.challenge-status {
+  margin-left: auto;
+  padding: 6px 10px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.challenge-status.pending {
+  background: #fff4df;
+  color: #ff9800;
+}
+
+.challenge-status.completed {
+  background: #e7f9ed;
+  color: #2dd36f;
+}
+
+.challenge-description {
+  margin: 0 0 16px;
+  color: #777;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.challenge-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.challenge-progress-info span {
+  color: #777;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.challenge-progress-info strong {
+  color: #6c63ff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.challenge-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #edf0f6;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.challenge-progress-fill {
+  height: 100%;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+  transition: width .45s ease;
+}
+
+.challenge-btn {
+  width: 100%;
+  margin-top: 16px;
+  border: none;
+  border-radius: 18px;
+  padding: 14px;
+  background: #6c63ff;
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: 0 10px 22px rgba(108, 99, 255, .25);
+}
+
+.challenge-btn ion-icon {
+  font-size: 20px;
+}
+
+.challenge-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(108, 99, 255, .34);
+}
+
+.challenge-btn:disabled {
+  background: #e7f9ed;
+  color: #2dd36f;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* ==========================
+   TÍTULOS
+========================== */
+
 .section-title {
   display: flex;
   justify-content: space-between;
@@ -139,6 +294,10 @@
     cursor: pointer;
   }
 }
+
+/* ==========================
+   RECOMPENSAS
+========================== */
 
 .rewards-scroll {
   display: flex;
@@ -209,6 +368,10 @@
   }
 }
 
+/* ==========================
+   PROMO ESCANEO
+========================== */
+
 .promo-card {
   margin: 4px 20px 10px;
   background: linear-gradient(135deg, #fff 0%, #f6f5ff 100%);
@@ -259,6 +422,10 @@
     cursor: pointer;
   }
 }
+
+/* ==========================
+   ACTIVIDAD RECIENTE
+========================== */
 
 .recent-title {
   padding-top: 20px;
@@ -357,17 +524,9 @@
   }
 }
 
-@keyframes cardUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* ==========================
+   MODAL
+========================== */
 
 .custom-modal {
   --height: auto;
@@ -437,5 +596,21 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+/* ==========================
+   ANIMACIONES
+========================== */
+
+@keyframes cardUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

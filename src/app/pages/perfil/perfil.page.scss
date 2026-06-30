@@ -1,630 +1,660 @@
-.perfil-bg{
-  --background:#f5f7fb;
+.perfil-bg {
+  --background: #f5f7fb;
 }
 
-/*==========================
-      CABECERA
-==========================*/
+/* ==========================
+   CABECERA PERFIL
+========================== */
 
-.profile-hero{
-
-  position:relative;
-
-  background:linear-gradient(135deg,#6C63FF,#4B43D0);
-
-  padding:45px 25px 85px;
-
-  border-radius:0 0 40px 40px;
-
-  text-align:center;
-
-  overflow:hidden;
-
-  color:white;
-
+.profile-hero {
+  position: relative;
+  background: linear-gradient(135deg, #6c63ff, #4b43d0);
+  padding: 45px 25px 85px;
+  border-radius: 0 0 40px 40px;
+  text-align: center;
+  overflow: hidden;
+  color: white;
 }
 
-.top-decoration{
-
-  position:absolute;
-
-  width:280px;
-  height:280px;
-
-  border-radius:50%;
-
-  background:rgba(255,255,255,.08);
-
-  top:-120px;
-  right:-90px;
-
+.top-decoration {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  top: -120px;
+  right: -90px;
 }
 
-.avatar-wrapper{
-
-  position:relative;
-
-  z-index:2;
-
+.avatar-wrapper {
+  position: relative;
+  z-index: 2;
 }
 
-.avatar-container{
-
-  width:110px;
-  height:110px;
-
-  margin:auto;
-
-  border-radius:50%;
-
-  overflow:hidden;
-
-  background:white;
-
-  border:5px solid rgba(255,255,255,.25);
-
-  box-shadow:0 18px 40px rgba(0,0,0,.18);
-
-  cursor:pointer;
-
-  transition:.35s;
-
+.avatar-container {
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  border: 5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: 0.35s;
 }
 
-.avatar-container:hover{
-
-  transform:scale(1.08);
-
+.avatar-container:hover {
+  transform: scale(1.08);
 }
 
-.profile-img{
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.avatar-default{
-
-  width:100%;
-  height:100%;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
+.avatar-default {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.avatar-default h2{
-
-  color:#6C63FF;
-
-  font-size:40px;
-
-  margin:0;
-
+.avatar-default h2 {
+  color: #6c63ff;
+  font-size: 40px;
+  margin: 0;
 }
 
-.change-photo-btn{
-
-  margin-top:14px;
-
-  border:none;
-
-  padding:10px 20px;
-
-  border-radius:30px;
-
-  background:white;
-
-  color:#6C63FF;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-  transition:.3s;
-
+.change-photo-btn {
+  margin-top: 14px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: white;
+  color: #6c63ff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.change-photo-btn:hover{
-
-  transform:translateY(-3px);
-
-  box-shadow:0 10px 20px rgba(0,0,0,.15);
-
+.change-photo-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.profile-hero h2{
-
-  margin-top:18px;
-
-  margin-bottom:5px;
-
-  font-size:28px;
-
-  font-weight:800;
-
+.profile-hero h2 {
+  margin-top: 18px;
+  margin-bottom: 5px;
+  font-size: 28px;
+  font-weight: 800;
 }
 
-.profile-hero p{
-
-  opacity:.85;
-
-  font-size:15px;
-
+.profile-hero p {
+  opacity: 0.85;
+  font-size: 15px;
 }
 
+/* ==========================
+   CONTENIDO
+========================== */
 
-/*==========================
-      CONTENIDO
-==========================*/
-
-.profile-content{
-
-  margin-top:-45px;
-
-  position:relative;
-
-  z-index:5;
-
-  padding:0 18px 30px;
-
+.profile-content {
+  margin-top: -45px;
+  position: relative;
+  z-index: 5;
+  padding: 0 18px 30px;
 }
 
-/*==========================
-      TARJETA PUNTOS
-==========================*/
+/* ==========================
+   TARJETA PUNTOS
+========================== */
 
-.points-card{
-
-  background:white;
-
-  border-radius:25px;
-
-  padding:22px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  box-shadow:0 15px 35px rgba(0,0,0,.08);
-
-  margin-bottom:25px;
-
+.points-card {
+  background: white;
+  border-radius: 25px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  margin-bottom: 18px;
 }
 
-.level-badge{
-
-  display:inline-block;
-
-  background:#FFF4D8;
-
-  color:#FF9800;
-
-  font-size:11px;
-
-  font-weight:800;
-
-  padding:5px 12px;
-
-  border-radius:30px;
-
+.level-badge {
+  display: inline-block;
+  background: #fff4d8;
+  color: #ff9800;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 30px;
 }
 
-.points-left h3{
-
-  margin:15px 0 5px;
-
-  font-size:20px;
-
-  font-weight:800;
-
+.points-left h3 {
+  margin: 15px 0 5px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
-.points-left p{
-
-  margin:0;
-
-  color:#888;
-
-  font-size:14px;
-
+.points-left p {
+  margin: 0;
+  color: #888;
+  font-size: 14px;
 }
 
-.points-right{
-
-  text-align:center;
-
+.points-right {
+  text-align: center;
 }
 
-.points-right ion-icon{
-
-  color:#FFC107;
-
-  font-size:34px;
-
+.points-right ion-icon {
+  color: #ffc107;
+  font-size: 34px;
 }
 
-.points-right h2{
-
-  margin:5px 0 0;
-
-  font-size:38px;
-
-  font-weight:800;
-
+.points-right h2 {
+  margin: 5px 0 0;
+  font-size: 38px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
-/*==========================
-      TITULO
-==========================*/
+/* ==========================
+   PROGRESO NIVEL
+========================== */
 
-.section-label{
-
-  margin-bottom:18px;
-
+.level-progress-card {
+  background: white;
+  border-radius: 26px;
+  padding: 24px;
+  margin-bottom: 25px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  animation: cardIn 0.45s ease;
 }
 
-.section-label p{
-
-  margin:0;
-
-  color:#8b8b8b;
-
-  font-size:14px;
-
+.level-progress-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
 }
 
-.section-label h3{
-
-  margin-top:4px;
-
-  font-size:28px;
-
-  font-weight:800;
-
+.level-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: #fff4d8;
+  color: #ff9800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 
-/*==========================
-      MENU
-==========================*/
-
-.options-menu{
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:16px;
-
+.level-progress-header span {
+  font-size: 13px;
+  color: #888;
+  font-weight: 700;
 }
 
-.menu-item{
-
-  background:white;
-
-  border-radius:22px;
-
-  padding:18px;
-
-  display:flex;
-
-  align-items:center;
-
-  text-decoration:none;
-
-  color:inherit;
-
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
-
-  transition:.3s;
-
+.level-progress-header h3 {
+  margin: 4px 0 0;
+  font-size: 24px;
+  font-weight: 900;
+  color: #1a1a1a;
 }
 
-.menu-item:hover{
-
-  transform:translateY(-5px);
-
-  box-shadow:0 20px 35px rgba(0,0,0,.10);
-
+.level-points {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
-.item-icon{
-
-  width:58px;
-
-  height:58px;
-
-  border-radius:18px;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  font-size:28px;
-
-  margin-right:18px;
-
+.level-points ion-icon {
+  color: #ffc107;
+  font-size: 28px;
 }
 
-.item-icon.blue{
-
-  background:#EAF4FF;
-
-  color:#2196F3;
-
+.level-points h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  color: #1a1a1a;
 }
 
-.item-icon.green{
-
-  background:#E9F9EF;
-
-  color:#25D366;
-
+.progress-bar {
+  width: 100%;
+  height: 16px;
+  border-radius: 30px;
+  background: #edf0f6;
+  overflow: hidden;
 }
 
-.item-icon.orange{
-
-  background:#FFF4DF;
-
-  color:#FF9800;
-
+.progress-fill {
+  height: 100%;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #6c63ff, #a48cff);
+  transition: width 0.45s ease;
 }
 
-.item-icon.purple{
-
-  background:#F3E8FF;
-
-  color:#9C27B0;
-
+.progress-percent {
+  text-align: right;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #6c63ff;
 }
 
-.item-text{
-
-  flex:1;
-
+.progress-data {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 700;
+  color: #777;
 }
 
-.item-text h4{
-
-  margin:0;
-
-  font-size:17px;
-
-  font-weight:700;
-
+.progress-data strong {
+  color: #6c63ff;
 }
 
-.item-text p{
+/* ==========================
+   TITULOS DE SECCIÓN
+========================== */
 
-  margin-top:4px;
-
-  color:#888;
-
-  font-size:13px;
-
+.section-label {
+  margin-bottom: 18px;
 }
 
-.arrow-icon{
-
-  font-size:22px;
-
-  color:#BBB;
-
+.section-label p {
+  margin: 0;
+  color: #8b8b8b;
+  font-size: 14px;
 }
 
-/*==========================
-      BOTON SALIR
-==========================*/
-
-.logout-btn{
-
-  width:100%;
-
-  margin-top:28px;
-
-  border:none;
-
-  padding:18px;
-
-  border-radius:18px;
-
-  background:#FFECEC;
-
-  color:#EB445A;
-
-  font-size:17px;
-
-  font-weight:700;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:12px;
-
-  cursor:pointer;
-
-  transition:.3s;
-
+.section-label h3 {
+  margin-top: 4px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
-.logout-btn:hover{
+/* ==========================
+   LOGROS
+========================== */
 
-  background:#EB445A;
-
-  color:white;
-
-  transform:translateY(-4px);
-
-  box-shadow:0 18px 30px rgba(235,68,90,.25);
-
+.achievements-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
 }
 
-/*==========================
-      MODAL
-==========================*/
-
-.avatar-modal{
-
-  position:fixed;
-
-  inset:0;
-
-  background:rgba(0,0,0,.55);
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  z-index:9999;
-
+.achievement-card {
+  background: white;
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+  border: 1px solid transparent;
 }
 
-.avatar-box{
-
-  width:430px;
-
-  max-width:95%;
-
-  max-height:90vh;
-
-  overflow:auto;
-
-  background:white;
-
-  border-radius:25px;
-
-  padding:25px;
-
+.achievement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.10);
 }
 
-.avatar-box h3{
-
-  margin-top:0;
-
-  text-align:center;
-
+.achievement-icon {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  border-radius: 18px;
+  background: #fff4d8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 
-.upload-photo-btn{
-
-  display:block;
-
-  margin:18px auto;
-
-  background:#6C63FF;
-
-  color:white;
-
-  width:max-content;
-
-  padding:12px 24px;
-
-  border-radius:30px;
-
-  cursor:pointer;
-
-  font-weight:700;
-
+.achievement-info {
+  flex: 1;
 }
 
-.modal-subtitle{
-
-  text-align:center;
-
-  color:#888;
-
+.achievement-info h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
-.avatar-grid{
-
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:18px;
-
-  margin-top:20px;
-
+.achievement-info p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #888;
+  font-weight: 600;
 }
 
-.avatar-option{
-
-  width:120px;
-
-  height:120px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  margin:auto;
-
-  cursor:pointer;
-
-  transition:.3s;
-
+.achievement-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
 }
 
-.avatar-option:hover{
-
-  transform:scale(1.08);
-
+.achievement-status.unlocked {
+  background: #e7f9ed;
+  color: #2dd36f;
 }
 
-.modal-actions{
+.achievement-status.locked-text {
+  background: #f0f0f0;
+  color: #999;
+}
 
-  display:flex;
+.achievement-card.locked {
+  opacity: 0.65;
+  filter: grayscale(1);
+}
 
-  justify-content:center;
+.achievement-card.locked .achievement-icon {
+  background: #f0f0f0;
+}
 
-  gap:15px;
+/* ==========================
+   MENÚ
+========================== */
 
-  margin-top:25px;
+.options-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
+.menu-item {
+  background: white;
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.10);
+}
+
+.item-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  margin-right: 18px;
+}
+
+.item-icon.blue {
+  background: #eaf4ff;
+  color: #2196f3;
+}
+
+.item-icon.green {
+  background: #e9f9ef;
+  color: #25d366;
+}
+
+.item-icon.orange {
+  background: #fff4df;
+  color: #ff9800;
+}
+
+.item-icon.purple {
+  background: #f3e8ff;
+  color: #9c27b0;
+}
+
+.item-text {
+  flex: 1;
+}
+
+.item-text h4 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.item-text p {
+  margin-top: 4px;
+  color: #888;
+  font-size: 13px;
+}
+
+.arrow-icon {
+  font-size: 22px;
+  color: #bbb;
+}
+
+/* ==========================
+   BOTÓN CERRAR SESIÓN
+========================== */
+
+.logout-btn {
+  width: 100%;
+  margin-top: 28px;
+  border: none;
+  padding: 18px;
+  border-radius: 18px;
+  background: #ffecec;
+  color: #eb445a;
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #eb445a;
+  color: white;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(235, 68, 90, 0.25);
+}
+
+/* ==========================
+   MODAL AVATAR
+========================== */
+
+.avatar-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.avatar-box {
+  width: 430px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow: auto;
+  background: white;
+  border-radius: 25px;
+  padding: 25px;
+}
+
+.avatar-box h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.upload-photo-btn {
+  display: block;
+  margin: 18px auto;
+  background: #6c63ff;
+  color: white;
+  width: max-content;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: #888;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.avatar-option {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: auto;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.avatar-option:hover {
+  transform: scale(1.08);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
 }
 
 .close-btn,
-.delete-btn{
-
-  border:none;
-
-  padding:12px 24px;
-
-  border-radius:14px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
+.delete-btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.close-btn{
-
-  background:#6C63FF;
-
-  color:white;
-
+.close-btn {
+  background: #6c63ff;
+  color: white;
 }
 
-.delete-btn{
+.delete-btn {
+  background: #ffecec;
+  color: #eb445a;
+}
 
-  background:#FFECEC;
+/* ==========================
+   ANIMACIONES
+========================== */
 
-  color:#EB445A;
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 480px) {
+  .profile-hero {
+    padding: 40px 20px 80px;
+  }
+
+  .profile-hero h2 {
+    font-size: 24px;
+  }
+
+  .profile-content {
+    padding: 0 14px 30px;
+  }
+
+  .points-card {
+    padding: 18px;
+  }
+
+  .points-right h2 {
+    font-size: 32px;
+  }
+
+  .level-progress-card {
+    padding: 20px;
+  }
+
+  .section-label h3 {
+    font-size: 24px;
+  }
+
+  .menu-item {
+    padding: 15px;
+  }
+
+  .item-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    margin-right: 14px;
+  }
+
+  .item-text h4 {
+    font-size: 15px;
+  }
+
+  .item-text p {
+    font-size: 12px;
+  }
+
+  .achievement-card {
+    padding: 14px;
+  }
+
+  .achievement-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    font-size: 26px;
+  }
+
+  .avatar-option {
+    width: 100px;
+    height: 100px;
+  }
 }

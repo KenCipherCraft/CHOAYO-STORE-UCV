@@ -91,7 +91,7 @@
 
       <div class="points-left">
         <span class="level-badge">
-          NIVEL {{ usuario?.nivel || 'ORO' }}
+          NIVEL {{ usuario?.nivel || 'Bronce' }}
         </span>
 
         <h3>Tus Puntos</h3>
@@ -101,6 +101,88 @@
       <div class="points-right">
         <ion-icon name="star"></ion-icon>
         <h2>{{ usuario?.puntos || 0 }}</h2>
+      </div>
+
+    </div>
+
+    <div class="level-progress-card">
+
+      <div class="level-progress-header">
+
+        <div class="level-icon">
+          <ion-icon name="trophy-outline"></ion-icon>
+        </div>
+
+        <div>
+          <span>Progreso de nivel</span>
+          <h3>NIVEL {{ infoNivel.nivelActual }}</h3>
+        </div>
+
+      </div>
+
+      <div class="level-points">
+        <ion-icon name="star"></ion-icon>
+        <h2>{{ usuario?.puntos || 0 }} pts</h2>
+      </div>
+
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          [style.width.%]="infoNivel.progreso"
+        ></div>
+      </div>
+
+      <div class="progress-percent">
+        {{ infoNivel.progreso | number:'1.0-0' }}%
+      </div>
+
+      <div class="progress-data">
+
+        <span>
+          {{ infoNivel.puntosActuales }} / {{ infoNivel.meta }} pts
+        </span>
+
+        <strong *ngIf="infoNivel.faltan > 0">
+          Faltan {{ infoNivel.faltan }} pts para {{ infoNivel.siguienteNivel }}
+        </strong>
+
+        <strong *ngIf="infoNivel.faltan === 0">
+          Has alcanzado el nivel máximo
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="section-label">
+      <p>Recompensas personales</p>
+      <h3>Mis logros</h3>
+    </div>
+
+    <div class="achievements-grid">
+
+      <div
+        class="achievement-card"
+        *ngFor="let logro of logros"
+        [ngClass]="{ 'locked': !logro.desbloqueado }"
+      >
+
+        <div class="achievement-icon">
+          {{ logro.desbloqueado ? logro.icono : '🔒' }}
+        </div>
+
+        <div class="achievement-info">
+          <h4>{{ logro.titulo }}</h4>
+          <p>{{ logro.descripcion }}</p>
+
+          <span
+            class="achievement-status"
+            [ngClass]="logro.desbloqueado ? 'unlocked' : 'locked-text'"
+          >
+            {{ logro.desbloqueado ? 'Desbloqueado' : 'Bloqueado' }}
+          </span>
+        </div>
+
       </div>
 
     </div>
