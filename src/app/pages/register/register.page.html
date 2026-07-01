@@ -31,23 +31,33 @@
 
         <div class="input-group">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
-          <input [type]="passwordType" formControlName="password" placeholder="Contraseña">
+          <input [type]="passwordType" formControlName="password" placeholder="Contraseña" (blur)="registerForm.get('password')?.markAsTouched()">
         </div>
+        <p class="hint-msg" *ngIf="!passwordInvalida">Almenos 8 caracteres, con letras y números.</p>
+        <p class="error-msg" *ngIf="passwordInvalida">La contraseña debe tener mínimo 8 caracteres, con letras y números.</p>
 
         <div class="input-group">
           <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
           <input [type]="confirmPasswordType" formControlName="confirmPassword" placeholder="Confirmar contraseña">
         </div>
 
-          <div class="options">
-            <label class="checkbox-label">
-              <input type="checkbox" class="native-checkbox">
-              <span>Acepto los términos y condiciones</span>
-            </label>
-          </div>
+        <div class="options">
+          <label class="checkbox-label">
+            <input type="checkbox" class="native-checkbox" formControlName="aceptaTerminos">
+            <span>Acepto los términos y condiciones</span>
+          </label>
+        </div>
 
-        <button type="submit" class="main-btn" [disabled]="registerForm.invalid">
-          Registrarme
+        <!-- Aviso: faltan aceptar términos -->
+        <p class="terms-warning" *ngIf="faltaAceptarTerminos">
+          Debes aceptar los términos y condiciones para continuar.
+        </p>
+
+        <!-- Mensaje de error -->
+        <p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+        <button type="submit" class="main-btn" [disabled]="registerForm.invalid || cargando">
+          {{ cargando ? 'Creando cuenta...' : 'Registrarme' }}
         </button>
       </form>
 
@@ -57,13 +67,14 @@
     </div>
 
   </div>
+
+  <!-- Modal de éxito -->
+  <div class="modal-overlay" *ngIf="mostrarModalExito">
+    <div class="success-card">
+      <ion-icon name="checkmark-circle" class="success-icon"></ion-icon>
+      <h2>¡Cuenta creada!</h2>
+      <p>Bienvenido a LoyalApp 🎉</p>
+    </div>
+  </div>
+
 </ion-content>
-<!-- Mensaje de error -->
-<p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
-
-<!-- Mensaje de éxito -->
-<p class="success-msg" *ngIf="successMsg">{{ successMsg }}</p>
-
-<button type="submit" class="main-btn" [disabled]="registerForm.invalid || cargando">
-  {{ cargando ? 'Creando cuenta...' : 'Registrarme' }}
-</button>

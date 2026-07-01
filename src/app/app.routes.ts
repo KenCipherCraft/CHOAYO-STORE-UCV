@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/register/register.page').then((m) => m.RegisterPage),
   },
   {
+    path: 'restablecer-password',
+    loadComponent: () => import('./pages/restablecer-password/restablecer-password.page').then((m) => m.RestablecerPasswordPage),
+  },
+  {
     path: 'tabs',
     loadComponent: () => import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
     canActivate: [authGuard],
@@ -39,7 +43,7 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
-      }
+      } 
     ]
   },
   {

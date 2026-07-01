@@ -24,6 +24,13 @@ export class LoginPage implements OnInit {
   errorMsg: string = '';
   cargando: boolean = false;
 
+  // --- Recuperar contraseña ---
+  mostrarModalRecuperar: boolean = false;
+  recuperarEmail: string = '';
+  mensajeRecuperar: string = '';
+  cargandoRecuperar: boolean = false;
+  recuperarExito: boolean = false;
+
   constructor(
     private router: Router,
     private supabaseService: SupabaseService
@@ -55,6 +62,40 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/tabs/home']);
     } else {
       this.errorMsg = 'Correo o contraseña incorrectos.';
+    }
+  }
+
+  abrirModalRecuperar() {
+    this.mostrarModalRecuperar = true;
+    this.recuperarEmail = '';
+    this.mensajeRecuperar = '';
+    this.recuperarExito = false;
+  }
+
+  cerrarModalRecuperar() {
+    this.mostrarModalRecuperar = false;
+    this.recuperarEmail = '';
+    this.mensajeRecuperar = '';
+    this.recuperarExito = false;
+  }
+
+  async enviarRecuperacion() {
+    this.mensajeRecuperar = '';
+
+    if (!this.recuperarEmail) {
+      this.mensajeRecuperar = 'Ingresa tu correo electrónico.';
+      return;
+    }
+
+    this.cargandoRecuperar = true;
+    const resultado = await this.supabaseService.recuperarContrasena(this.recuperarEmail);
+    this.cargandoRecuperar = false;
+
+    if (resultado.success) {
+      this.recuperarExito = true;
+      this.mensajeRecuperar = 'Si el correo existe, te enviamos un enlace. Revisa tu bandeja (y spam).';
+    } else {
+      this.mensajeRecuperar = 'Ocurrió un error. Intenta de nuevo.';
     }
   }
 }

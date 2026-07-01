@@ -100,19 +100,6 @@ export class SupabaseService {
     return data;
   }
 
-  // Actualizar contraseña del usuario activo
-  async actualizarPassword(nuevaPassword: string) {
-    const { data, error } = await supabase.auth.updateUser({
-      password: nuevaPassword
-    });
-
-    if (error) {
-      console.error('Error al actualizar contraseña:', error);
-      return { error };
-    }
-    return { data };
-  }
-
   // Iniciar sesión
   async login(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -160,4 +147,29 @@ export class SupabaseService {
     const { data } = await supabase.auth.getSession();
     return data?.session || null;
   }
+
+  // Actualizar contraseña del usuario activo
+  async actualizarPassword(nuevaPassword: string) {
+    const { data, error } = await supabase.auth.updateUser({
+      password: nuevaPassword
+    });
+    if (error) {
+      console.error('Error al actualizar contraseña:', error);
+      return { error };
+    }
+    return { data };
+  }
+
+  // Enviar correo electrónico para restablecer la contraseña
+  async recuperarContrasena(email: string) {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/restablecer-password',
+    });
+    if (error) {
+      console.error('Error al solicitar recuperación:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true, data };
+  }
+
 }

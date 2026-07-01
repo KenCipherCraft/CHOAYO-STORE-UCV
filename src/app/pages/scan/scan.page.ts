@@ -16,7 +16,7 @@ import { SupabaseService } from '../../services/supabase.service';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-scan',
+  
   templateUrl: './scan.page.html',
   styleUrls: ['./scan.page.scss'],
   standalone: true,

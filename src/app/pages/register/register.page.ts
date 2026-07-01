@@ -11,7 +11,7 @@ import {
   IonCheckbox
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline, gift, callOutline } from 'ionicons/icons';
+import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline, gift, callOutline, checkmarkCircle } from 'ionicons/icons';
 import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
@@ -40,20 +40,26 @@ export class RegisterPage implements OnInit {
   errorMsg: string = '';
   successMsg: string = '';
   cargando: boolean = false;
+  mostrarModalExito: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private supabaseService: SupabaseService,
     private router: Router
   ) { 
-    addIcons({gift,personOutline,mailOutline,callOutline,lockClosedOutline,eyeOutline,eyeOffOutline});
+    addIcons({gift,personOutline,mailOutline,callOutline,lockClosedOutline,eyeOutline,eyeOffOutline,checkmarkCircle});
     
     this.registerForm = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       telefono: ['', [Validators.required, Validators.minLength(9)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/) // al menos 1 letra y 1 número
+      ]],
+      confirmPassword: ['', [Validators.required]],
+      aceptaTerminos: [false, Validators.requiredTrue]
     }, { validators: this.passwordsMatch });
   }
 
@@ -70,6 +76,21 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  // Indica si los datos están completos pero falta aceptar términos,
+  // para mostrar el mensaje de aviso en el HTML.
+  get faltaAceptarTerminos(): boolean {
+    const camposBasicos = ['fullName', 'email', 'telefono', 'password', 'confirmPassword'];
+    const camposValidos = camposBasicos.every(c => this.registerForm.get(c)?.valid);
+    const terminosAceptados = this.registerForm.get('aceptaTerminos')?.value;
+    return camposValidos && !terminosAceptados;
+  }
+
+  // Muestra el error de contraseña solo si el usuario ya escribió algo
+  get passwordInvalida(): boolean {
+    const control = this.registerForm.get('password');
+    return !!control && control.touched && control.invalid;
+  }
+
   togglePasswordMode() {
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     this.passwordIcon = this.passwordIcon === 'eye-outline' ? 'eye-off-outline' : 'eye-outline';
@@ -81,26 +102,26 @@ export class RegisterPage implements OnInit {
   }
 
   async registrar() {
-  this.errorMsg = '';
-  this.successMsg = '';
+    this.errorMsg = '';
+    this.successMsg = '';
 
-  if (this.registerForm.invalid) return;
+    if (this.registerForm.invalid) return;
 
-  this.cargando = true;
+    this.cargando = true;
 
-  const { fullName, email, password, telefono } = this.registerForm.value;
-  const resultado = await this.supabaseService.registrar(email, password, fullName, telefono);
+    const { fullName, email, password, telefono } = this.registerForm.value;
+    const resultado = await this.supabaseService.registrar(email, password, fullName, telefono);
 
-  this.cargando = false;
+    this.cargando = false;
 
-  if (resultado) {
-    this.successMsg = '¡Cuenta creada! Bienvenido a LoyalApp 🎉';
-    setTimeout(() => {
-      this.router.navigate(['/login']);
-    }, 3500);
-  } else {
-    this.errorMsg = 'No se pudo crear la cuenta. El correo ya puede estar registrado.';
+    if (resultado) {
+      this.mostrarModalExito = true;
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 3500);
+    } else {
+      this.errorMsg = 'No se pudo crear la cuenta. El correo ya puede estar registrado.';
+    }
   }
-}
-  
+
 }

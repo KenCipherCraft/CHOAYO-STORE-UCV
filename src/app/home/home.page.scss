@@ -439,3 +439,98 @@
     }
   }
 }
+ /* Estilos para el modal de notificaciones */
+/* 1. El contenedor del modal (se queda igual fuera del deep) */
+.notif-modal {
+  --height: 55%;
+  --border-radius: 24px 24px 0 0;
+  --box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. LE DECIMOS A ANGULAR QUE PASEN ESTOS ESTILOS AL INTERIOR DEL MODAL */
+::ng-deep {
+  
+  .notif-wrapper {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #ffffff; /* Forzamos fondo blanco interno */
+  }
+
+  .notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 12px;
+
+    h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 20px;
+      color: #111111 !important; /* Forzamos color de texto visible */
+    }
+
+    .close-notif-btn {
+      background: transparent;
+      color: #5d5fef;
+      font-weight: bold;
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+
+  .notif-list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .notif-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px;
+    background: #f8f9ff; /* Un color de fondo sutil para las tarjetas de alerta */
+    border-radius: 16px;
+    align-items: center;
+  }
+
+  .notif-icon-box {
+    background: #eef0ff;
+    padding: 10px;
+    border-radius: 12px;
+    color: #5d5fef;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notif-body {
+    flex: 1;
+
+    h4 {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      font-weight: bold;
+      color: #1a1a1a !important;
+    }
+
+    p {
+      margin: 0 0 4px 0;
+      font-size: 12px;
+      color: #4a4a4a !important;
+      line-height: 1.4;
+    }
+
+    span {
+      font-size: 11px;
+      color: #999999 !important;
+      display: block;
+    }
+  }
+}

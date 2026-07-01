@@ -7,9 +7,9 @@
         <h2>Hola {{ usuario?.nombre?.split(' ')[0] || 'Usuario' }} 👋</h2>
       </div>
 
-      <div class="notification-circle">
-        <ion-icon name="notifications-outline"></ion-icon>
-      </div>
+      <div class="notification-circle" (click)="abrirNotificaciones()">
+  <ion-icon name="notifications-outline"></ion-icon>
+</div>
     </div>
 
     <div class="points-card">
@@ -43,7 +43,7 @@
       (click)="procesarCanje(item.nombre, item.costo)"
     >
       <div class="img-container">
-        <img [src]="item.imagen" [alt]="item.nombre" loading="lazy" width="60" height="60">
+        <img [src]="item.imagen" [alt]="item.nombre" [title]="item.nombre" loading="lazy">
       </div>
 
       <h4>{{ item.nombre }}</h4>
@@ -55,17 +55,17 @@
     </div>
   </div>
 
-  <div class="promo-card">
+<div class="promo-card">
     <div class="promo-icon">
       <ion-icon name="gift-outline"></ion-icon>
     </div>
 
-    <div>
+    <div class="scan-text">
       <h3>Escanea tus compras</h3>
       <p>Gana puntos cada vez que registres una boleta.</p>
     </div>
 
-    <button routerLink="/tabs/scan">
+    <button class="btn-escanear-home" (click)="irAEscanear()">
       Escanear
     </button>
   </div>
@@ -93,7 +93,7 @@
 
         <div class="activity-info">
           <h4>{{ tx.descripcion }}</h4>
-          <span>{{ tx.fecha || 'Reciente' }}</span>
+          <span>{{ tx.fechaFormateada | date: 'dd/MM/yyyy hh:mm a' }}</span>
         </div>
       </div>
 
@@ -125,4 +125,27 @@
     </ng-template>
   </ion-modal>
 
+    <ion-modal [isOpen]="isNotifModalOpen" (didDismiss)="isNotifModalOpen = false" class="notif-modal">
+  <ng-template>
+    <div class="notif-wrapper">
+      <div class="notif-header">
+        <h3>Notificaciones</h3>
+        <button class="close-notif-btn" (click)="isNotifModalOpen = false">Cerrar</button>
+      </div>
+
+      <div class="notif-list">
+        <div class="notif-item" *ngFor="let notif of listaNotificaciones">
+          <div class="notif-icon-box">
+            <ion-icon [name]="notif.icono"></ion-icon>
+          </div>
+          <div class="notif-body">
+            <h4>{{ notif.titulo }}</h4>
+            <p>{{ notif.mensaje }}</p>
+            <span>{{ notif.tiempo }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
 </ion-content>

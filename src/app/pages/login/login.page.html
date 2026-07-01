@@ -1,6 +1,5 @@
 <ion-content class="custom-bg">
   <div class="login-container">
-
     <div class="logo-section">
       <div class="logo-box">
         <img src="assets/icon/LogoPag.png" alt="Logo CHOAYOAPP">
@@ -8,44 +7,82 @@
       <h1>CHOAYOAPP</h1>
       <p>Premiamos tu fidelidad</p>
     </div>
-
     <div class="welcome-text">
       <h2>Bienvenido</h2>
       <p>Inicia sesión para continuar</p>
     </div>
-
     <div class="form-container">
-
       <div class="input-group">
         <ion-icon name="mail-outline"></ion-icon>
         <input type="email" placeholder="Correo electrónico" [(ngModel)]="email">
       </div>
-
       <div class="input-group">
         <ion-icon name="lock-closed-outline"></ion-icon>
         <input [type]="passwordType" placeholder="Contraseña" [(ngModel)]="password">
         <ion-icon [name]="passwordIcon" class="eye-icon" (click)="togglePasswordMode()"></ion-icon>
       </div>
-
       <!-- Mensaje de error -->
       <p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
-
       <div class="options">
         <div class="remember">
           <ion-checkbox mode="md"></ion-checkbox>
           <label>Recordarme</label>
         </div>
-        <a href="javascript:void(0)" class="forgot-pwd">¿Olvidaste tu contraseña?</a>
+        <a href="javascript:void(0)" class="forgot-pwd" (click)="abrirModalRecuperar()">¿Olvidaste tu contraseña?</a>
       </div>
-
       <button class="main-btn" (click)="ingresar()" [disabled]="cargando">
         {{ cargando ? 'Iniciando...' : 'Iniciar sesión' }}
       </button>
-
       <div class="footer">
         <p>¿No tienes cuenta? <a routerLink="/register">Crear cuenta</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Recuperar contraseña -->
+  <div
+    *ngIf="mostrarModalRecuperar"
+    style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 24px;"
+  >
+    <div style="background: #2a2a35; border-radius: 16px; padding: 28px 24px; max-width: 380px; width: 100%;">
+
+      <h3 style="color: #ffffff; text-align: center; margin-bottom: 8px;">Recuperar Contraseña</h3>
+      <p style="color: #aaaaaa; text-align: center; font-size: 14px; margin-bottom: 20px;">
+        Ingresa tu correo y te enviaremos un enlace para restablecerla.
+      </p>
+
+      <input
+        type="email"
+        placeholder="Correo electrónico"
+        [(ngModel)]="recuperarEmail"
+        style="width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #444; background: #1f1f28; color: #ffffff; outline: none; font-size: 16px; box-sizing: border-box;"
+      />
+
+      <p
+        *ngIf="mensajeRecuperar"
+        [style.color]="recuperarExito ? '#4caf50' : '#ff6b6b'"
+        style="font-size: 13px; margin-bottom: 12px; text-align: center;"
+      >
+        {{ mensajeRecuperar }}
+      </p>
+
+      <div style="display: flex; gap: 12px; margin-top: 8px;">
+        <button
+          (click)="enviarRecuperacion()"
+          [disabled]="cargandoRecuperar"
+          style="flex: 1; padding: 12px; border-radius: 8px; border: none; background: #6c63ff; color: #ffffff; font-weight: 600; cursor: pointer;"
+        >
+          {{ cargandoRecuperar ? 'Enviando...' : 'Enviar enlace' }}
+        </button>
+        <button
+          (click)="cerrarModalRecuperar()"
+          style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #666; background: transparent; color: #cccccc; cursor: pointer;"
+        >
+          Cancelar
+        </button>
       </div>
 
     </div>
   </div>
+
 </ion-content>

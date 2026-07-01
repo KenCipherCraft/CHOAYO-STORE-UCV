@@ -66,7 +66,16 @@ export class HomePage implements OnInit {
       .limit(3);
 
     if (!error && data) {
-      this.transaccionesRecientes = data;
+      this.transaccionesRecientes = data.map((tx: any) => {
+        if (tx.fecha) {
+          // 1. Forzamos a que JavaScript entienda que la fecha original está en UTC
+          const fechaUTC = new Date(tx.fecha.includes('Z') ? tx.fecha : tx.fecha + 'Z');
+          
+          // 2. Guardamos la fecha convertida localmente
+          tx.fechaFormateada = fechaUTC;
+        }
+        return tx;
+      });
     }
   }
 
@@ -92,5 +101,36 @@ procesarCanje(nombreItem: string, costo: number) {
 
   irARecompensas() {
     this.router.navigate(['/tabs/recompensas']);
+  }
+
+ irAEscanear() {
+    this.router.navigate(['/tabs/escanear']);
+  }
+
+  isNotifModalOpen = false;
+  
+  listaNotificaciones = [
+    {
+      titulo: '¡Bono de Bienvenida Activo!',
+      mensaje: 'Felicidades, recibiste +250 puntos por unirte a Choayo Store.',
+      tiempo: 'Hace 5 min',
+      icono: 'gift-outline'
+    },
+    {
+      titulo: 'Tu Cupón S/15 expira pronto',
+      mensaje: 'Recuerda canjear tu cupón en caja antes de que venza su validez.',
+      tiempo: 'Hace 2 horas',
+      icono: 'alert-circle-outline'
+    },
+    {
+      titulo: '¡Nueva Recompensa Disponible!',
+      mensaje: 'Ya puedes canjear el combo de Descuento 20% con tus puntos.',
+      tiempo: 'Ayer',
+      icono: 'star' // <-- Cambiado de 'star-outline' a 'star'
+    }
+  ];
+
+  abrirNotificaciones() {
+    this.isNotifModalOpen = true;
   }
 }

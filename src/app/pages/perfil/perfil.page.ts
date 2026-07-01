@@ -170,12 +170,22 @@ export class PerfilPage implements OnInit {
     premios: true
   };
 
-  // --- LÓGICA DE CONTRASEÑA ---
-  async cambiarContrasena() {
-    if (this.nuevaPassword.length < 6) {
-      this.mensajePassword = 'La contraseña debe tener al menos 6 caracteres.';
+// --- LÓGICA DE CONTRASEÑA ---
+async cambiarContrasena() {
+    // 1. Esto valida que tenga AL MENOS 8 (8 o más, sin límite máximo)
+    if (!this.nuevaPassword || this.nuevaPassword.length < 8) {
+      this.mensajePassword = 'La contraseña debe tener al menos 8 caracteres.';
       return;
     }
+
+    // 2. Validar que contenga al menos una letra y un número (Misma regla que en el registro)
+    const tieneLetrasYNumeros = /^(?=.*[A-Za-z])(?=.*\d).+$/;
+    if (!tieneLetrasYNumeros.test(this.nuevaPassword)) {
+      this.mensajePassword = 'La contraseña debe contener letras y números.';
+      return;
+    }
+
+    // 3. Validar coincidencia de campos
     if (this.nuevaPassword !== this.confirmarPassword) {
       this.mensajePassword = 'Las contraseñas no coinciden.';
       return;
@@ -184,7 +194,7 @@ export class PerfilPage implements OnInit {
     this.mensajePassword = 'Actualizando...';
     const result = await this.supabaseService.actualizarPassword(this.nuevaPassword);
 
-    if (result.error) {
+    if (result?.error) {
       this.mensajePassword = 'Error al actualizar. Intenta de nuevo.';
     } else {
       this.mensajePassword = '¡Contraseña actualizada con éxito!';
