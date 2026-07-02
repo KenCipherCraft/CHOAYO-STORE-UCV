@@ -793,3 +793,86 @@
   transition:.3s;
 
 }
+/*=====================================
+   NUEVO MODAL CONTRASEÑA PROFESIONAL
+======================================*/
+
+.password-group {
+  margin-top: 14px;
+  width: 100%;
+  background: #f7f7fb;
+  border: 1px solid #e3e4ef;
+  border-radius: 16px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.25s;
+}
+
+.password-group:focus-within {
+  border-color: #6c63ff;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.12);
+}
+
+.password-group .password-input {
+  margin-top: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 15px 0;
+  flex: 1;
+}
+
+.password-group .password-input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.password-icon {
+  color: #6c63ff;
+  font-size: 21px;
+}
+
+.password-eye {
+  color: #6c63ff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.password-rules {
+  margin-top: 16px;
+  background: #f8f8ff;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #eb445a;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.rule:last-child {
+  margin-bottom: 0;
+}
+
+.rule ion-icon {
+  font-size: 18px;
+}
+
+.rule.ok {
+  color: #2dd36f;
+}
+
+.change-photo-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

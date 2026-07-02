@@ -86,48 +86,151 @@
 
   </div>
 
-  <!-- MODAL CONTRASEÑA -->
-  <div class="avatar-modal" *ngIf="mostrarModalPassword">
+<!-- MODAL CONTRASEÑA -->
+<div class="avatar-modal" *ngIf="mostrarModalPassword">
 
-    <div class="avatar-box">
+  <div class="avatar-box">
 
-      <h3>Seguridad</h3>
+    <h3>Seguridad</h3>
 
-      <p class="modal-subtitle">
-        Ingresa tu nueva clave de acceso.
-      </p>
+    <p class="modal-subtitle">
+      Ingresa una nueva contraseña segura.
+    </p>
+
+    <!-- NUEVA CONTRASEÑA -->
+
+    <div class="password-group">
+
+      <ion-icon
+        name="lock-closed-outline"
+        class="password-icon">
+      </ion-icon>
 
       <input
-        type="password"
-        placeholder="Nueva Contraseña"
+        [type]="mostrarNuevaPassword ? 'text' : 'password'"
+        placeholder="Nueva contraseña"
         [(ngModel)]="nuevaPassword"
         class="password-input"
       />
 
+      <ion-icon
+        [name]="mostrarNuevaPassword ? 'eye-off-outline' : 'eye-outline'"
+        class="password-eye"
+        (click)="mostrarNuevaPassword=!mostrarNuevaPassword">
+      </ion-icon>
+
+    </div>
+
+    <!-- CONFIRMAR -->
+
+    <div class="password-group">
+
+      <ion-icon
+        name="lock-closed-outline"
+        class="password-icon">
+      </ion-icon>
+
       <input
-        type="password"
-        placeholder="Confirmar Contraseña"
+        [type]="mostrarConfirmarPassword ? 'text' : 'password'"
+        placeholder="Confirmar contraseña"
         [(ngModel)]="confirmarPassword"
         class="password-input"
       />
 
-      <p *ngIf="mensajePassword" class="password-message">
-        {{ mensajePassword }}
-      </p>
+      <ion-icon
+        [name]="mostrarConfirmarPassword ? 'eye-off-outline' : 'eye-outline'"
+        class="password-eye"
+        (click)="mostrarConfirmarPassword=!mostrarConfirmarPassword">
+      </ion-icon>
 
-      <div class="modal-actions">
-        <button class="change-photo-btn" (click)="cambiarContrasena()">
-          Guardar
-        </button>
+    </div>
 
-        <button class="close-btn" (click)="cerrarModalPassword()">
-          Cancelar
-        </button>
+    <!-- VALIDACIONES -->
+
+    <div class="password-rules">
+
+      <div
+        class="rule"
+        [class.ok]="passwordTieneMinimo">
+
+        <ion-icon
+          [name]="passwordTieneMinimo ? 'checkmark-circle-outline' : 'close-circle-outline'">
+        </ion-icon>
+
+        <span>Mínimo 8 caracteres</span>
+
+      </div>
+
+      <div
+        class="rule"
+        [class.ok]="passwordTieneLetras">
+
+        <ion-icon
+          [name]="passwordTieneLetras ? 'checkmark-circle-outline' : 'close-circle-outline'">
+        </ion-icon>
+
+        <span>Contiene letras</span>
+
+      </div>
+
+      <div
+        class="rule"
+        [class.ok]="passwordTieneNumeros">
+
+        <ion-icon
+          [name]="passwordTieneNumeros ? 'checkmark-circle-outline' : 'close-circle-outline'">
+        </ion-icon>
+
+        <span>Contiene números</span>
+
+      </div>
+
+      <div
+        class="rule"
+        [class.ok]="passwordsCoinciden">
+
+        <ion-icon
+          [name]="passwordsCoinciden ? 'checkmark-circle-outline' : 'close-circle-outline'">
+        </ion-icon>
+
+        <span>Las contraseñas coinciden</span>
+
       </div>
 
     </div>
 
+    <p
+      *ngIf="mensajePassword"
+      class="password-message">
+
+      {{ mensajePassword }}
+
+    </p>
+
+    <div class="modal-actions">
+
+      <button
+        class="change-photo-btn"
+        [disabled]="!formularioPasswordValido"
+        (click)="cambiarContrasena()">
+
+        Guardar
+
+      </button>
+
+      <button
+        class="close-btn"
+        (click)="cerrarModalPassword()">
+
+        Cancelar
+
+      </button>
+
+    </div>
+
   </div>
+
+</div>
 
   <div class="profile-content">
 

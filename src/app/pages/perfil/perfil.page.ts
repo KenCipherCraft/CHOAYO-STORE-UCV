@@ -21,7 +21,12 @@ import {
   star,
   logoWhatsapp,
   documentTextOutline,
-  helpCircleOutline
+  helpCircleOutline,
+  eyeOutline,
+  eyeOffOutline,
+  lockClosedOutline,
+  checkmarkCircleOutline,
+  closeCircleOutline
 } from 'ionicons/icons';
 
 import { SupabaseService } from '../../services/supabase.service';
@@ -53,6 +58,9 @@ export class PerfilPage implements OnInit {
   mostrarAvatares = false;
   mostrarModalPassword = false;
   mostrarNotificaciones = false;
+
+  mostrarNuevaPassword = false;
+  mostrarConfirmarPassword = false;
 
   avatarSeleccionado: string | null =
     localStorage.getItem('avatarSeleccionado');
@@ -95,7 +103,12 @@ export class PerfilPage implements OnInit {
       star,
       logoWhatsapp,
       documentTextOutline,
-      helpCircleOutline
+      helpCircleOutline,
+      eyeOutline,
+      eyeOffOutline,
+      lockClosedOutline,
+      checkmarkCircleOutline,
+      closeCircleOutline
     });
   }
 
@@ -113,6 +126,34 @@ export class PerfilPage implements OnInit {
   ionViewWillEnter() {
     this.cargarPerfil();
     this.avatarSeleccionado = localStorage.getItem('avatarSeleccionado');
+  }
+
+  get passwordTieneMinimo(): boolean {
+    return this.nuevaPassword.length >= 8;
+  }
+
+  get passwordTieneLetras(): boolean {
+    return /[A-Za-z]/.test(this.nuevaPassword);
+  }
+
+  get passwordTieneNumeros(): boolean {
+    return /\d/.test(this.nuevaPassword);
+  }
+
+  get passwordsCoinciden(): boolean {
+    return (
+      this.confirmarPassword.length > 0 &&
+      this.nuevaPassword === this.confirmarPassword
+    );
+  }
+
+  get formularioPasswordValido(): boolean {
+    return (
+      this.passwordTieneMinimo &&
+      this.passwordTieneLetras &&
+      this.passwordTieneNumeros &&
+      this.passwordsCoinciden
+    );
   }
 
   async cargarPerfil() {
@@ -190,20 +231,8 @@ export class PerfilPage implements OnInit {
   }
 
   async cambiarContrasena() {
-    if (!this.nuevaPassword || this.nuevaPassword.length < 8) {
-      this.mensajePassword = 'La contraseña debe tener al menos 8 caracteres.';
-      return;
-    }
-
-    const tieneLetrasYNumeros = /^(?=.*[A-Za-z])(?=.*\d).+$/;
-
-    if (!tieneLetrasYNumeros.test(this.nuevaPassword)) {
-      this.mensajePassword = 'La contraseña debe contener letras y números.';
-      return;
-    }
-
-    if (this.nuevaPassword !== this.confirmarPassword) {
-      this.mensajePassword = 'Las contraseñas no coinciden.';
+    if (!this.formularioPasswordValido) {
+      this.mensajePassword = 'Revisa los requisitos antes de guardar.';
       return;
     }
 
@@ -220,7 +249,7 @@ export class PerfilPage implements OnInit {
 
       setTimeout(() => {
         this.cerrarModalPassword();
-      }, 2000);
+      }, 1800);
     }
   }
 
@@ -229,6 +258,8 @@ export class PerfilPage implements OnInit {
     this.nuevaPassword = '';
     this.confirmarPassword = '';
     this.mensajePassword = '';
+    this.mostrarNuevaPassword = false;
+    this.mostrarConfirmarPassword = false;
   }
 
   guardarPreferenciasNotificaciones() {
