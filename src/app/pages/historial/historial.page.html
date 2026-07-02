@@ -8,7 +8,7 @@
         <h2>Historial</h2>
       </div>
 
-      <button class="filter-btn">
+      <button class="filter-btn" (click)="mostrarFiltros = true">
         <ion-icon name="funnel-outline"></ion-icon>
       </button>
     </div>
@@ -29,6 +29,44 @@
 
   </div>
 
+  <div class="search-box">
+    <ion-icon name="search-outline"></ion-icon>
+
+    <input
+      type="text"
+      placeholder="Buscar movimiento..."
+      [(ngModel)]="textoBusqueda"
+      (input)="aplicarFiltros()"
+    />
+
+    <button *ngIf="textoBusqueda" (click)="limpiarBusqueda()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+
+  <div class="chips-container">
+    <button
+      [class.active]="filtroActivo === 'todos'"
+      (click)="cambiarFiltro('todos')"
+    >
+      Todos
+    </button>
+
+    <button
+      [class.active]="filtroActivo === 'ganados'"
+      (click)="cambiarFiltro('ganados')"
+    >
+      Ganados
+    </button>
+
+    <button
+      [class.active]="filtroActivo === 'canjeados'"
+      (click)="cambiarFiltro('canjeados')"
+    >
+      Canjeados
+    </button>
+  </div>
+
   <div class="section-title">
     <p>Actividad reciente</p>
     <h3>Tus movimientos</h3>
@@ -36,18 +74,17 @@
 
   <div class="list-container">
 
-    <div class="empty-state" *ngIf="transacciones.length === 0">
+    <div class="empty-state" *ngIf="transaccionesFiltradas.length === 0">
       <ion-icon name="receipt-outline"></ion-icon>
-      <h3>Aún no tienes historial</h3>
-      <p>Cuando escanees compras o canjees recompensas, aparecerán aquí.</p>
+      <h3>No hay resultados</h3>
+      <p>Prueba con otro filtro o busca otro movimiento.</p>
     </div>
 
     <div
       class="history-card"
-      *ngFor="let item of transacciones"
+      *ngFor="let item of transaccionesFiltradas"
       [ngClass]="item.tipo === 'ingreso' ? 'income' : 'expense'"
     >
-
       <div class="history-icon">
         <ion-icon
           [name]="item.tipo === 'ingreso' ? 'arrow-up-circle-outline' : 'gift-outline'"
@@ -65,9 +102,61 @@
       >
         {{ item.tipo === 'ingreso' ? '+' : '-' }}{{ item.monto }} pts
       </div>
-
     </div>
 
+  </div>
+
+  <div class="filter-overlay" *ngIf="mostrarFiltros" (click)="mostrarFiltros = false"></div>
+
+  <div class="filter-sheet" *ngIf="mostrarFiltros">
+    <div class="sheet-line"></div>
+
+    <div class="sheet-header">
+      <div>
+        <p>Ordenar historial</p>
+        <h3>Filtro avanzado</h3>
+      </div>
+
+      <button (click)="mostrarFiltros = false">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <button
+      class="filter-option"
+      [class.selected]="ordenActual === 'reciente'"
+      (click)="seleccionarOrden('reciente')"
+    >
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+      Más reciente
+    </button>
+
+    <button
+      class="filter-option"
+      [class.selected]="ordenActual === 'antiguo'"
+      (click)="seleccionarOrden('antiguo')"
+    >
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+      Más antiguo
+    </button>
+
+    <button
+      class="filter-option"
+      [class.selected]="ordenActual === 'mayor'"
+      (click)="seleccionarOrden('mayor')"
+    >
+      <ion-icon name="arrow-up-circle-outline"></ion-icon>
+      Mayor cantidad
+    </button>
+
+    <button
+      class="filter-option"
+      [class.selected]="ordenActual === 'menor'"
+      (click)="seleccionarOrden('menor')"
+    >
+      <ion-icon name="gift-outline"></ion-icon>
+      Menor cantidad
+    </button>
   </div>
 
 </ion-content>

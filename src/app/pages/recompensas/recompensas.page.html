@@ -4,8 +4,8 @@
 
     <div class="hero-text">
       <p>Centro de beneficios</p>
-      <h2>Catálogo de Recompensas</h2>
-      <span>Canjea tus puntos por premios exclusivos de CHOAYO.</span>
+      <h2>Recompensas CHOAYO</h2>
+      <span>Canjea tus puntos por dulces, snacks y premios coreanos.</span>
     </div>
 
     <div class="points-summary">
@@ -21,6 +21,38 @@
 
   </div>
 
+  <div class="search-box">
+
+    <ion-icon name="search-outline"></ion-icon>
+
+    <input
+      type="text"
+      placeholder="Buscar recompensa..."
+      [(ngModel)]="textoBusqueda"
+      (input)="aplicarFiltros()"
+    />
+
+    <button
+      *ngIf="textoBusqueda"
+      (click)="limpiarBusqueda()"
+    >
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+  </div>
+
+  <div class="category-scroll">
+
+    <button
+      *ngFor="let categoria of categorias"
+      [class.active]="categoriaActiva === categoria"
+      (click)="cambiarCategoria(categoria)"
+    >
+      {{ categoria }}
+    </button>
+
+  </div>
+
   <div class="section-title">
     <div>
       <p>Premios disponibles</p>
@@ -31,12 +63,21 @@
   <div class="catalog-grid">
 
     <div
+      class="empty-state"
+      *ngIf="catalogoFiltrado.length === 0"
+    >
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <h3>No encontramos recompensas</h3>
+      <p>Prueba buscando otro producto o cambia de categoría.</p>
+    </div>
+
+    <div
       class="reward-card"
-      *ngFor="let item of catalogo"
+      *ngFor="let item of catalogoFiltrado"
       [ngClass]="item.colorClass"
     >
 
-      <div class="reward-image">
+      <div class="reward-image" (click)="abrirDetalle(item)">
         <img
           [src]="item.imagen"
           [alt]="item.nombre"
@@ -46,8 +87,17 @@
       <div class="reward-content">
 
         <div class="reward-header">
+
           <div>
+            <span class="category-label">
+              {{ item.categoria }}
+            </span>
+
             <h3>{{ item.nombre }}</h3>
+
+            <p class="reward-description">
+              {{ item.descripcion }}
+            </p>
 
             <div class="cost-info">
               <ion-icon name="star"></ion-icon>
@@ -61,9 +111,11 @@
           >
             {{ usuario.puntos >= item.costo ? 'Disponible' : 'Bloqueado' }}
           </span>
+
         </div>
 
         <div class="progress-wrapper">
+
           <div class="progress-track">
             <div
               class="progress-fill"
@@ -82,6 +134,7 @@
               Listo para canjear
             </strong>
           </div>
+
         </div>
 
         <button
@@ -133,5 +186,64 @@
 
     </ng-template>
   </ion-modal>
+<div class="confetti-box" *ngIf="mostrarCelebracion">
+  <span>🎉</span>
+  <span>⭐</span>
+  <span>🎊</span>
+  <span>✨</span>
+  <span>🎉</span>
+  <span>⭐</span>
+</div>
 
+<ion-modal
+  [isOpen]="isDetalleOpen"
+  (didDismiss)="cerrarDetalle()"
+  class="detail-modal"
+>
+  <ng-template>
+
+    <div class="detail-wrapper" *ngIf="productoSeleccionado">
+
+      <button class="detail-close" (click)="cerrarDetalle()">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+      <div class="detail-image">
+        <img
+          [src]="productoSeleccionado.imagen"
+          [alt]="productoSeleccionado.nombre"
+        />
+      </div>
+
+      <span class="detail-category">
+        {{ productoSeleccionado.categoria }}
+      </span>
+
+      <h2>{{ productoSeleccionado.nombre }}</h2>
+
+      <p>
+        {{ productoSeleccionado.descripcion }}
+      </p>
+
+      <div class="detail-points">
+        <ion-icon name="star"></ion-icon>
+        <strong>{{ productoSeleccionado.costo }} pts</strong>
+      </div>
+
+      <div class="detail-stock">
+        Existencias: {{ productoSeleccionado.existencias }}
+      </div>
+
+      <button
+        class="detail-canje-btn"
+        [class.disabled]="usuario.puntos < productoSeleccionado.costo"
+        (click)="canjearDesdeDetalle()"
+      >
+        {{ usuario.puntos >= productoSeleccionado.costo ? 'Canjear recompensa' : 'Puntos insuficientes' }}
+      </button>
+
+    </div>
+
+  </ng-template>
+</ion-modal>
 </ion-content>

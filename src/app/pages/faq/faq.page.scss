@@ -1,0 +1,97 @@
+.faq-bg {
+  --background: #f5f7fb;
+}
+
+.faq-hero {
+  background: linear-gradient(135deg, #6C63FF, #4B43D0);
+  color: white;
+  padding: 35px 22px 75px;
+  border-radius: 0 0 38px 38px;
+}
+
+.back-btn {
+  color: white;
+  font-size: 28px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.faq-hero p {
+  margin: 20px 0 5px;
+  color: #FFC107;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.faq-hero h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.faq-hero span {
+  display: block;
+  margin-top: 8px;
+  opacity: .9;
+  font-size: 14px;
+}
+
+.faq-container {
+  margin-top: -40px;
+  padding: 0 18px 90px;
+  position: relative;
+  z-index: 5;
+}
+
+.faq-card {
+  background: white;
+  border-radius: 22px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,.07);
+}
+
+.faq-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.faq-left ion-icon {
+  font-size: 26px;
+  color: #6C63FF;
+}
+
+.faq-left h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #222;
+}
+
+.faq-header > ion-icon {
+  color: #6C63FF;
+  font-size: 22px;
+  transition: .3s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.faq-body {
+  padding: 0 20px 20px;
+  color: #666;
+  line-height: 1.7;
+  font-size: 15px;
+  font-weight: 600;
+}

@@ -1,20 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- NUEVO
-import { IonContent, IonIcon, IonButton, IonToggle } from '@ionic/angular/standalone'; // <-- NUEVO
+import { FormsModule } from '@angular/forms';
+import {
+  IonContent,
+  IonIcon,
+  IonButton,
+  IonToggle
+} from '@ionic/angular/standalone';
+
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
+
 import {
   personOutline,
   shieldCheckmarkOutline,
   notificationsOutline,
   logOutOutline,
   chevronForwardOutline,
+  chevronDownOutline,
   star,
-  logoWhatsapp
+  logoWhatsapp,
+  documentTextOutline,
+  helpCircleOutline
 } from 'ionicons/icons';
 
-// 1. Cambiamos el servicio local por el real de Supabase
 import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
@@ -26,15 +35,14 @@ import { SupabaseService } from '../../services/supabase.service';
     IonContent,
     IonIcon,
     IonButton,
-    IonToggle,   
+    IonToggle,
     CommonModule,
-    FormsModule, 
+    FormsModule,
     RouterModule
   ]
 })
 export class PerfilPage implements OnInit {
 
-  // Inicializamos con valores por defecto mientras carga
   usuario: any = {
     nombre: 'Cargando...',
     correo: '',
@@ -43,7 +51,21 @@ export class PerfilPage implements OnInit {
   };
 
   mostrarAvatares = false;
-  avatarSeleccionado: string | null = localStorage.getItem('avatarSeleccionado');
+  mostrarModalPassword = false;
+  mostrarNotificaciones = false;
+
+  avatarSeleccionado: string | null =
+    localStorage.getItem('avatarSeleccionado');
+
+  nuevaPassword = '';
+  confirmarPassword = '';
+  mensajePassword = '';
+
+  alertas = {
+    productos: true,
+    promociones: true,
+    premios: true
+  };
 
   avatares: string[] = [
     'assets/avatars/Avatar J-Hope.png',
@@ -60,7 +82,7 @@ export class PerfilPage implements OnInit {
   ];
 
   constructor(
-    private supabaseService: SupabaseService, // 2. Inyectamos Supabase
+    private supabaseService: SupabaseService,
     private router: Router
   ) {
     addIcons({
@@ -69,17 +91,20 @@ export class PerfilPage implements OnInit {
       notificationsOutline,
       logOutOutline,
       chevronForwardOutline,
+      chevronDownOutline,
       star,
-      logoWhatsapp
+      logoWhatsapp,
+      documentTextOutline,
+      helpCircleOutline
     });
   }
 
   ngOnInit() {
     this.cargarPerfil();
     this.avatarSeleccionado = localStorage.getItem('avatarSeleccionado');
-    
-    // Cargar preferencias de notificaciones si existen
+
     const prefsGuardadas = localStorage.getItem('alertasChoayo');
+
     if (prefsGuardadas) {
       this.alertas = JSON.parse(prefsGuardadas);
     }
@@ -90,21 +115,22 @@ export class PerfilPage implements OnInit {
     this.avatarSeleccionado = localStorage.getItem('avatarSeleccionado');
   }
 
-  // 3. Método para jalar los datos reales de Supabase
   async cargarPerfil() {
     try {
       const userAuth = await this.supabaseService.getUsuarioActual();
-      if (!userAuth) return;
+
+      if (!userAuth) {
+        return;
+      }
 
       const perfil = await this.supabaseService.getPerfilUsuario(userAuth.id);
-      
+
       if (perfil) {
-        // Mapeamos los nombres de la BD a los nombres que tu HTML ya usa
         this.usuario = {
           nombre: perfil.nombre,
-          correo: perfil.correo_electronico, // BD -> HTML
-          puntos: perfil.puntos_totales,     // BD -> HTML
-          nivel: 'ORO' // Puedes añadir lógica de niveles a la BD en el futuro
+          correo: perfil.correo_electronico,
+          puntos: perfil.puntos_totales,
+          nivel: 'ORO'
         };
       }
     } catch (error) {
@@ -112,7 +138,6 @@ export class PerfilPage implements OnInit {
     }
   }
 
-  // Los métodos de avatares se mantienen intactos usando localStorage
   seleccionarAvatar(avatar: string) {
     this.avatarSeleccionado = avatar;
     localStorage.setItem('avatarSeleccionado', avatar);
@@ -121,16 +146,25 @@ export class PerfilPage implements OnInit {
 
   subirFotoUsuario(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
 
     const archivo = input.files[0];
     const lector = new FileReader();
 
     lector.onload = () => {
       this.avatarSeleccionado = lector.result as string;
-      localStorage.setItem('avatarSeleccionado', this.avatarSeleccionado);
+
+      localStorage.setItem(
+        'avatarSeleccionado',
+        this.avatarSeleccionado
+      );
+
       this.mostrarAvatares = false;
     };
+
     lector.readAsDataURL(archivo);
   }
 
@@ -146,58 +180,44 @@ export class PerfilPage implements OnInit {
     );
   }
 
-  // 4. Cierre de sesión real conectado a Supabase
   async cerrarSesion() {
     try {
-      await this.supabaseService.logout(); // Destruye la sesión en la BD/Caché
-      this.router.navigate(['/login']);    // Redirige a la pantalla de ingreso
+      await this.supabaseService.logout();
+      this.router.navigate(['/login']);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
   }
 
-  // --- VARIABLES PARA CONTRASEÑA ---
-  mostrarModalPassword = false;
-  nuevaPassword = '';
-  confirmarPassword = '';
-  mensajePassword = '';
-
-  // --- VARIABLES PARA NOTIFICACIONES ---
-  mostrarNotificaciones = false;
-  alertas = {
-    productos: true,
-    promociones: true,
-    premios: true
-  };
-
-// --- LÓGICA DE CONTRASEÑA ---
-async cambiarContrasena() {
-    // 1. Esto valida que tenga AL MENOS 8 (8 o más, sin límite máximo)
+  async cambiarContrasena() {
     if (!this.nuevaPassword || this.nuevaPassword.length < 8) {
       this.mensajePassword = 'La contraseña debe tener al menos 8 caracteres.';
       return;
     }
 
-    // 2. Validar que contenga al menos una letra y un número (Misma regla que en el registro)
     const tieneLetrasYNumeros = /^(?=.*[A-Za-z])(?=.*\d).+$/;
+
     if (!tieneLetrasYNumeros.test(this.nuevaPassword)) {
       this.mensajePassword = 'La contraseña debe contener letras y números.';
       return;
     }
 
-    // 3. Validar coincidencia de campos
     if (this.nuevaPassword !== this.confirmarPassword) {
       this.mensajePassword = 'Las contraseñas no coinciden.';
       return;
     }
 
     this.mensajePassword = 'Actualizando...';
-    const result = await this.supabaseService.actualizarPassword(this.nuevaPassword);
+
+    const result = await this.supabaseService.actualizarPassword(
+      this.nuevaPassword
+    );
 
     if (result?.error) {
       this.mensajePassword = 'Error al actualizar. Intenta de nuevo.';
     } else {
       this.mensajePassword = '¡Contraseña actualizada con éxito!';
+
       setTimeout(() => {
         this.cerrarModalPassword();
       }, 2000);
@@ -211,10 +231,10 @@ async cambiarContrasena() {
     this.mensajePassword = '';
   }
 
-  // --- LÓGICA DE NOTIFICACIONES ---
   guardarPreferenciasNotificaciones() {
-    // Guarda en la memoria del teléfono los switches actuales
-    localStorage.setItem('alertasChoayo', JSON.stringify(this.alertas));
+    localStorage.setItem(
+      'alertasChoayo',
+      JSON.stringify(this.alertas)
+    );
   }
-
 }

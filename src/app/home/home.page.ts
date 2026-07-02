@@ -21,11 +21,67 @@ export class HomePage implements OnInit {
   modalData = { titulo: '', mensaje: '', icono: '', color: '' };
 
   transaccionesRecientes: any[] = [];
-  destacadas = [
-    { nombre: 'Café gratis', costo: 500, imagen: 'assets/recompensas/cafe.png' },
-    { nombre: 'Descuento 20%', costo: 800, imagen: 'assets/recompensas/descuento.png' },
-    { nombre: 'Cupón S/15', costo: 1000, imagen: 'assets/recompensas/cupon.png' }
-  ];
+ destacadas = [
+   {
+
+    nombre: 'Café Coreano',
+
+    costo: 150,
+
+    imagen: 'assets/recompensas/bebidas/Café Coreano.jpg'
+
+  },
+
+  {
+
+    nombre: 'Milkis',
+
+    costo: 200,
+
+    imagen: 'assets/recompensas/bebidas/Milkis.jpg'
+
+  },
+
+  {
+
+    nombre: 'Cupón S/5',
+
+    costo: 600,
+
+    imagen: 'assets/recompensas/sorpresas/Cupon 5.png'
+
+  },
+
+ {
+
+    nombre: 'ChocoPie',
+
+    costo: 220,
+
+    imagen: 'assets/recompensas/snacks/ChocoPie.png'
+
+  },
+
+  {
+
+    nombre: 'KitKat Matcha',
+
+    costo: 320,
+
+    imagen: 'assets/recompensas/dulces/KitKat Matcha.jpg'
+
+  },
+
+  {
+
+    nombre: 'Gift Box Premium',
+
+    costo: 2500,
+
+    imagen: 'assets/recompensas/sorpresas/Gift Box Premium.png'
+
+  }
+];
 
   constructor(
     private supabaseService: SupabaseService,

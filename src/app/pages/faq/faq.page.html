@@ -1,0 +1,37 @@
+<ion-content class="faq-bg">
+
+  <div class="faq-hero">
+    <a routerLink="/tabs/perfil" class="back-btn">←</a>
+
+    <p>CHOAYO STORE</p>
+    <h2>Preguntas Frecuentes</h2>
+    <span>Resuelve tus dudas sobre puntos, recompensas y cupones.</span>
+  </div>
+
+  <div class="faq-container">
+
+    <div class="faq-card" *ngFor="let item of preguntas">
+
+      <div class="faq-header" (click)="abrir(item)">
+
+        <div class="faq-left">
+          <ion-icon name="help-circle-outline"></ion-icon>
+          <h3>{{ item.pregunta }}</h3>
+        </div>
+
+        <ion-icon
+          name="chevron-down-outline"
+          [class.rotate]="item.abierta"
+        ></ion-icon>
+
+      </div>
+
+      <div class="faq-body" *ngIf="item.abierta">
+        {{ item.respuesta }}
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

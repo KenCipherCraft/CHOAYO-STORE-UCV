@@ -628,3 +628,168 @@
   color:#EB445A;
 
 }
+.notification-panel{
+
+  background:#ffffff;
+
+  margin:-8px 0 12px;
+
+  padding:18px;
+
+  border-radius:0 0 18px 18px;
+
+  border:1px solid #ECECEC;
+
+  border-top:none;
+
+  box-shadow:0 8px 18px rgba(0,0,0,.05);
+
+}
+
+.notification-option{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:12px 0;
+
+}
+
+.notification-option:not(:last-child){
+
+  border-bottom:1px solid #F1F1F1;
+
+}
+
+.notification-option span{
+
+  color:#333;
+
+  font-size:15px;
+
+  font-weight:600;
+
+}
+
+/*=====================================
+      TERMINOS Y FAQ
+======================================*/
+
+.item-icon.legal{
+
+  background:#EEF2FF;
+
+  color:#4F46E5;
+
+}
+
+.item-icon.faq{
+
+  background:#FFF8E7;
+
+  color:#F59E0B;
+
+}
+
+/*=====================================
+      INPUTS CONTRASEÑA
+======================================*/
+
+.password-input{
+
+  width:100%;
+
+  margin-top:14px;
+
+  padding:15px;
+
+  border-radius:14px;
+
+  border:1px solid #E4E4E4;
+
+  background:#FAFAFA;
+
+  font-size:15px;
+
+  transition:.25s;
+
+  outline:none;
+
+}
+
+.password-input:focus{
+
+  border-color:#6C63FF;
+
+  background:white;
+
+  box-shadow:0 0 0 4px rgba(108,99,255,.12);
+
+}
+
+.password-message{
+
+  margin-top:14px;
+
+  text-align:center;
+
+  color:#EB445A;
+
+  font-size:13px;
+
+  font-weight:700;
+
+}
+
+/*=====================================
+      EFECTOS
+======================================*/
+
+.menu-item{
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.menu-item::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  bottom:0;
+
+  width:0;
+
+  height:3px;
+
+  background:#6C63FF;
+
+  transition:.35s;
+
+}
+
+.menu-item:hover::after{
+
+  width:100%;
+
+}
+
+.menu-item:hover .item-icon{
+
+  transform:rotate(-8deg) scale(1.08);
+
+}
+
+.item-icon{
+
+  transition:.3s;
+
+}
