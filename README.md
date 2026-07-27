@@ -1,9 +1,3 @@
-### 📊 Mis Estadísticas
-<p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=KenLozano&show_icons=true&theme=radial" alt="Estadísticas de GitHub" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=KenLozano&layout=compact&theme=radial" alt="Lenguajes más usados" width="48%" />
-</p>
-
 # CHOAYOAPP - Sistema de Fidelización de Clientes 🎁
 
 Aplicación móvil híbrida desarrollada para **CHOAYO STORE**. Este sistema permite a los clientes registrarse, acumular puntos por sus compras mediante escaneo, visualizar su historial de transacciones, editar su perfil y canjear sus puntos por recompensas exclusivas del catálogo.
